@@ -13,5 +13,6 @@ deploy:
   app: viewing-party-m3
   on:
     repo: cunninghamge/viewing_party
+    branch: main
   skip_cleanup: 'true'
   run: rails db:migrate

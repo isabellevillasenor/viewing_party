@@ -9,5 +9,9 @@ script:
 deploy:
   provider: heroku
   api_key:
+    secure: RJIut+nArBjS5APUZcc507Dm+onZ4ZofSgs3Zlw6q7r7AyHgPY8Zof9kctD6zjjEL5jxGpSjxsMVYW6HklosGPCbeXHP1jSRIFEggy61cJgSZW6dMfaJ79PjxdzyCzH2so4GME7MPz429s8/DBjJYP1iycYhMuv34wslNqsnRlUIDWXVgg84+AEjSDKt1a+peuR0aXriFpOLF8yLM23KQdRJpGHnLS1yw73YEpmi+gZY0YI5CV81PhVvlT//RbONHjdadFz+dbMOVIPSBIZsAvCm3pZVXGnnsi+sNLBI4WKrHEV5dwrry98HAyewP9mMyYAvHis6hl3F/wTNyfDGGRiWnzEJKyS5Y0Yi+G2wlJ3Rpofo8Tav66+JBjJW+Qz92IobiDz236UL4sKtvDiHxcBrqP+zT2B89mArQD5lmCOAcc+/n3dbWqUtl8lfvHg8SS2uTzxupeLPEzhQ6Sll+T+YyeP4N48sgRI54XMDH9TppJwaxKYrm0k1M0L0IZTADbFkPgLlAQiRd+DujxKEKR23Vsfdj3GHuW+PE0wlp9sLUY/pYK+uXOh2PsYe9u6LgeyCNFKjdENSPZOZ3xp4R+28R7HahZdijT/cq8H15BV6ipfG1wg2F3+jyGn12CsefCrv5CkM4p+rBnSB0r4QiaFH2nG0JrOBKthUF3Z/b8U=
   app: viewing-party-m3
+  on:
+    repo: cunninghamge/viewing_party
+  skip_cleanup: 'true'
   run: rails db:migrate

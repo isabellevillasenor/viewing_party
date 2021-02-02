@@ -33,6 +33,9 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov'
+  gem 'shoulda-matchers'
+  gem 'orderly'
+  gem 'pry'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

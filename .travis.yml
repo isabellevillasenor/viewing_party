@@ -9,5 +9,5 @@ script:
 deploy:
   provider: heroku
   api_key:
-  app:
+  app: viewing-party-m3
   run: rails db:migrate

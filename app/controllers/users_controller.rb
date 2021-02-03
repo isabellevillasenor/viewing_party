@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to dashboard_path
     else
-      flash[:errors] = @user.errors.full_messages
+      flash.now[:errors] = @user.errors.full_messages
       render :new, obj: @user
     end
   end
@@ -17,6 +17,8 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    user_info = params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    user_info[:email] = user_info[:email].downcase
+    user_info
   end
 end

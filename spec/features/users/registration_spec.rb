@@ -53,4 +53,13 @@ RSpec.describe 'user registration' do
     expect(current_path).to eq(dashboard_path)
     expect(page).to have_content("Welcome, #{email}!")
   end
+
+  it 'email is not case sensitive' do
+    fill_in('user[email]', with: email.upcase)
+    fill_in('user[password]', with: password)
+    fill_in('user[password_confirmation]', with: password)
+    click_button('Register')
+
+    expect(page).to have_content("Welcome, #{email}!")
+  end
 end

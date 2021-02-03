@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   resources :dashboard, only: [:index]
 
   get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
 end

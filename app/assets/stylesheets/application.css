@@ -15,9 +15,12 @@
  */
 
 body {
+  background-color: #313646;
+  color: #FBFFFD;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  text-align: center;
 }
 
 main {
@@ -28,4 +31,9 @@ footer {
   display: flex;
   align-self: baseline;
   flex-direction: row;
+}
+
+h1 {
+  color: #FBFFFD;
+  text-align: center;
 }

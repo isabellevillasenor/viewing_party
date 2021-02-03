@@ -14,5 +14,4 @@ deploy:
   on:
     repo: cunninghamge/viewing_party
     branch: main
-  cleanup: 'true'
   run: rails db:migrate

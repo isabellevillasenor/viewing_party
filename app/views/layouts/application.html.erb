@@ -10,6 +10,13 @@
 
   <body>
     <main>
+      <% flash.each do |notice, messages| %>
+        <ul>
+          <% messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
       <%= yield %>
     </main>
     <footer>

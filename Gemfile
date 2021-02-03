@@ -20,23 +20,22 @@ gem 'bcrypt', '~> 3.1.7'
 group :development, :test do
   gem 'capybara'
   gem 'pry'
-  gem 'travis'
   gem 'shoulda-matchers'
   gem 'launchy'
   gem 'orderly'
   gem 'rspec-rails'
   gem 'simplecov'
+  gem 'travis'
 end
 
 group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rubocop-rails'
-  gem 'travis'
 end
 
 group :test do
-
+  gem 'faker'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

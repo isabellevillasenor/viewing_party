@@ -1,1 +1,4 @@
-<%= render partial: 'shared/user_form', locals: {button_text: 'Register'} %>
+<h1>Welcome to Viewing Party</h1>
+<p>Please Register for an Account</p>
+<%= render partial: 'shared/user_form', locals: {button_text: 'Register', confirmation: true} %>
+<%= link_to 'Already Registered? Log in Here', login_path %>

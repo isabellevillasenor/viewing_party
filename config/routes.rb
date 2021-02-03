@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   get '/registration', to: 'users#new'
   resources :users, only: [:create]
   get '/dashboard', to: 'dashboard#index'
+  get '/login', to: 'sessions#new'
 end

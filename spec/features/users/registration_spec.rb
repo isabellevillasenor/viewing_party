@@ -24,7 +24,6 @@ RSpec.describe 'user registration' do
 
       click_button('Register')
 
-      expect(current_path).to eq(registration_path)
       expect(page).to have_content("Email can't be blank")
       expect(page).to have_content("Password can't be blank")
     end
@@ -40,7 +39,6 @@ RSpec.describe 'user registration' do
       fill_in('user[password_confirmation]', with: password.chop)
       click_button('Register')
 
-      expect(current_path).to eq(registration_path)
       expect(page).to have_content("Passwords do not match")
     end
   end

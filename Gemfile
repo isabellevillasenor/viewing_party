@@ -20,7 +20,6 @@ gem 'bcrypt', '~> 3.1.7'
 group :development, :test do
   gem 'capybara'
   gem 'pry'
-  gem 'travis'
   gem 'shoulda-matchers'
   gem 'launchy'
   gem 'orderly'
@@ -36,7 +35,7 @@ group :development do
 end
 
 group :test do
-
+  gem 'faker'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

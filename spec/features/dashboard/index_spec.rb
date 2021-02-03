@@ -1,24 +1,26 @@
 require 'rails_helper'
 
 describe 'Dashboard Index' do
-  describe 'it displays a welcome header for logged in user' do
-    # user = User.create(email: 'gon@hxh.com', password: 'test', name: 'Gon')
+  it 'displays a welcome header for logged in user' do
+    user = User.create(email: 'gon@hxh.com', password: 'test', name: 'Gon')
     
-    # visit root_path
+    visit login_path
 
-    # click_button 'Log In'
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
 
-    # fill_in :email, with: user.email
-    # fill_in :password, with: user.password
+    click_button 'Log In'
 
-    # click_button 'Log In'
-
-    # expect(current_path).to eq(dashboard_index_path)
-    # expect(page).to have_content("Welcome #{user.name}!")
+    expect(current_path).to eq(dashboard_index_path)
+    expect(page).to have_content("Welcome, #{user.name}!")
   end
 
-  describe 'it has a button to discover movies that routes to /discover' do
-    # visit gon dashboard
+  it 'it has a button to discover movies that routes to /discover' do
+    user = User.create(email: 'gon@hxh.com', password: 'test', name: 'Gon')
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+    visit dashboard_index_path
+    
     expect(page).to have_button('Discover Movies')
 
     # click_button 'Discover Movies'
@@ -26,9 +28,9 @@ describe 'Dashboard Index' do
     # expect(current_path).to eq(discover_path)
   end
 
-  describe 'it has a friends section to enter email and add friends' do
+  it 'it has a friends section to enter email and add friends' do
     # user1 = User.create(email: 'gon@hxh.com', password: 'test', name: 'Gon')
-    # user2 = User.create(email: 'killua@hxh.com', password: 'test', name: 'Killua')
+    # user2 = user1.friends.create(email: 'killua@hxh.com', password: 'test', name: 'Killua')
 
     #visit gon dashboard
     # expect(page).to have_content('Friends')
@@ -48,6 +50,6 @@ describe 'Dashboard Index' do
   end
 
   describe 'it displays an error message if friend is not in database' do
-    
+
   end
 end

@@ -15,10 +15,17 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'bootsnap'
 gem 'jbuilder', '~> 2.5'
+gem 'bcrypt', '~> 3.1.7'
 
 group :development, :test do
+  gem 'capybara'
   gem 'pry'
   gem 'travis'
+  gem 'shoulda-matchers'
+  gem 'launchy'
+  gem 'orderly'
+  gem 'rspec-rails'
+  gem 'simplecov'
 end
 
 group :development do
@@ -29,13 +36,7 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails'
-  gem 'capybara'
-  gem 'launchy'
-  gem 'simplecov'
-  gem 'shoulda-matchers'
-  gem 'orderly'
-  gem 'pry'
+
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

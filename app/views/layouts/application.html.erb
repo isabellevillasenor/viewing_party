@@ -13,11 +13,15 @@
 
     <main>
       <% flash.each do |notice, messages| %>
-        <ul>
-          <% messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
+        <% if notice == 'errors' %>
+          <ul>
+            <% messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p><%= messages %></p>
+        <% end %>
       <% end %>
       <%= yield %>
     </main>

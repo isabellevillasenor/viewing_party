@@ -16,6 +16,6 @@ RSpec.describe 'Welcome' do
   end
 
   it 'has a button to register' do
-    expect(page).to have_link('Register')
+    expect(page).to have_link('Register', href: registration_path)
   end
 end

@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'welcome#index'
 
-  #make this a show so an id can be passed via params
+  get '/registration', to: 'users#new'
+
+  resources :users, only: [:create]
+
   resources :dashboard, only: [:index]
 
+  get '/login', to: 'sessions#new'
 end

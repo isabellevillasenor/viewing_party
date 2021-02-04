@@ -52,12 +52,31 @@ describe User do
       end
     end
 
-    it '#all_friends' do
-      user = create(:user)
-      friend = create(:user)
+    describe 'friend groups' do
+      before(:each) do
+        user = create(:user)
+        added_friend = create(:user)
+        inverse_friend = create(:user)
+        approved_friend = create(:user)
+        approved_inverse_friend = create(:user)
+
+        user.add_friend(added_friend.email)
+        inverse_friend.add_friend(user.email)
+        create(:friendship, user: user, friend: approved_friend, status: 1)
+        create(:friendship, user: approved_inverse_friend, friend: user, status: 1)
+      end
       
-      friend.add_friend(user.email)
-      expect(user.all_friends).to eq([friend])
+      it '#approved_friends' do
+        expect(user.all_friends.to_set).to eq([approved_friend, approved_inverse_friend].to_set)
+      end
+
+      it '#pending_friends' do
+        expect(user.pending_friends).to eq([added_friend])
+      end
+
+      it '#pending_requests' do
+        expect(user.pending_friends).to eq([inverse_friend])
+      end
     end
   end
 end

@@ -12,5 +12,5 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   post '/logout', to: 'sessions#delete'
 
-  resources :friendships, only: [:update, :destroy]
+  resources :friendships, only: [:create, :update, :destroy]
 end

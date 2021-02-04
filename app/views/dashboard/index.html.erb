@@ -8,6 +8,16 @@
   <h3>Friends</h3>
   <hr>
   <%= render partial: 'friend_search' %><br/>
+  <% if @friends.empty? %>
+    <p>You currently have no friends.</p>
+  <% else %>
+    <% @friends.each do |friend| %>
+      <div id='friend-<%= friend.id%>'>
+        <h6><%= friend.name %></h6>
+        <p><%= friend.email %></p>
+      </div>
+    <% end %>
+  <% end %>
 </section>
 <br/>
 

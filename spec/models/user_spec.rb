@@ -16,19 +16,39 @@ describe User do
 
   describe 'instance methods' do
     it '#before_save' do
-      user = User.create(email: 'EMAIL@EMAIL.COM', password: 'test')
+      user = create(:user, email: 'EMAIL@EMAIL.COM')
 
       expect(user.email).to eq('email@email.com')
     end
 
     it '#name' do
-      user = User.create(email: 'email@email.com', password: 'test')
+      user = create(:user)
 
-      expect(user.name).to eq('email@email.com')
+      expect(user.name).to eq(user.email)
 
       user.update(name: 'Steve')
 
       expect(user.name).to eq('Steve')
+    end
+
+    describe '#add_friend' do
+      let(:user) { create(:user)}
+
+      it 'adds friends who are users' do
+        friend = create(:user)
+
+        result = user.add_friend(friend.email)
+        expect(result).to eq(true)
+        expect(user.friends).to eq([friend])
+      end
+
+      it 'returns false if the email does not belong to a user' do
+        email = Faker::Internet.email
+
+        result = user.add_friend(email)
+        expect(result).to eq(false)
+        expect(user.friends).to eq([])
+      end
     end
   end
 end

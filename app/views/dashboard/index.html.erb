@@ -13,7 +13,7 @@
       <div id='friend-<%= friend.id%>'>
         <h6><%= friend.name %></h6>
         <p><%= friend.email %></p>
-        <%= button_to 'Cancel', friendship_path %>
+        <%= button_to 'Cancel', friendship_path(friend.join_id), method: :delete  %>
       </div>
     <% end %>
   </div>
@@ -23,7 +23,7 @@
         <h6><%= friend.name %></h6>
         <p><%= friend.email %></p>
         <%= button_to 'Approve', friendship_path(friend.join_id), method: :patch %>
-        <%= button_to 'Deny' %>
+        <%= button_to 'Deny', friendship_path(friend.join_id), method: :delete  %>
       </div>
     <% end %>
   </div>

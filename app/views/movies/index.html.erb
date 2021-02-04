@@ -5,8 +5,7 @@
 
 <%= form_with model: @movie, local: true do |f| %>
 
-<%= f.label :title, "Movie Title" %>
-<%= f.search_field :title %>
+  <%= f.search_field :title, placeholder: 'Search by movie title' %>
 
-<%= f.submit 'Find Movies' %>
+  <%= f.submit 'Find Movies' %>
 <% end %>

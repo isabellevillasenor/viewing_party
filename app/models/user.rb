@@ -17,26 +17,26 @@ class User < ApplicationRecord
 
   before_save { email.try(:downcase!) }
 
-  scope :pending_friends, -> { select('users.*, friendships.id AS join_id').where(friendships: {status: 0}) }
-  scope :approved, -> { where(friendships: {status: 1}) }
-
-  class << self
-    alias pending_requests pending_friends
-  end
-
-  delegate :pending_friends, to: :friends
-  delegate :pending_requests, to: :inverse_friends
+  scope :approved, -> { where(friendships: { status: 1 }) }
+  scope :pending, -> { select('users.*, friendships.id AS join_id').where(friendships: { status: 0 }) }
 
   def name
     self[:name].presence || email
   end
 
-  def add_friend(email)
-    friend = User.find_by(email: email)
-    friends << friend if friend && friends.exclude?(friend)
+  def all_friends
+    friends + inverse_friends
   end
 
   def approved_friends
     friends.approved + inverse_friends.approved
+  end
+
+  def sent_requests
+    friends.pending
+  end
+
+  def received_requests
+    inverse_friends.pending
   end
 end

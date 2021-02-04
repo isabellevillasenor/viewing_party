@@ -4,6 +4,8 @@ describe User do
   describe 'relationships' do
     it { should have_many :friendships }
     it { should have_many(:friends).through(:friendships) }
+    it { should have_many :inverse_friendships }
+    it { should have_many(:inverse_friends).through(:inverse_friendships) }
     it { should have_many(:parties).dependent(:destroy) }
     it { should have_many(:invitations).dependent(:destroy) }
   end
@@ -48,6 +50,14 @@ describe User do
         expect(result).to eq(nil)
         expect(user.friends).to eq([])
       end
+    end
+
+    it '#all_friends' do
+      user = create(:user)
+      friend = create(:user)
+      
+      friend.add_friend(user.email)
+      expect(user.all_friends).to eq([friend])
     end
   end
 end

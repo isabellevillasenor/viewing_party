@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :dashboard, only: [:index]
 
+  get '/discover', to: 'movies#index'
+
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
 end

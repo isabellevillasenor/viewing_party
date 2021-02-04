@@ -17,6 +17,16 @@ class User < ApplicationRecord
 
   before_save { email.try(:downcase!) }
 
+  scope :pending_friends, -> { select('users.*, friendships.id AS join_id').merge(Friendship.pending) }
+  scope :approved, -> { merge(Friendship.approved) }
+
+  class << self
+    alias pending_requests pending_friends
+  end
+
+  delegate :pending_friends, to: :friends
+  delegate :pending_requests, to: :inverse_friends
+
   def name
     self[:name].presence || email
   end
@@ -26,15 +36,7 @@ class User < ApplicationRecord
     friends << friend if friend && friends.exclude?(friend)
   end
 
-  def pending_friends
-    friends.select('users.*, friendships.id AS join_id').merge(Friendship.pending)
-  end
-
-  def pending_requests
-    inverse_friends.select('users.*, friendships.id AS join_id').merge(Friendship.pending)
-  end
-
   def approved_friends
-    friends.merge(Friendship.approved) + inverse_friends.merge(Friendship.approved)
+    friends.approved + inverse_friends.approved
   end
 end

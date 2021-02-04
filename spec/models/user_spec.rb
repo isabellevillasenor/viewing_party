@@ -77,6 +77,11 @@ describe User do
       it '#pending_requests' do
         expect(@user.pending_requests).to eq([@inverse_friend])
       end
+
+      it 'approved scope' do
+        expect(@user.friends.approved).to eq([@approved_friend])
+        expect(@user.inverse_friends.approved).to eq([@approved_inverse_friend])
+      end
     end
   end
 end

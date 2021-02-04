@@ -10,11 +10,11 @@
   <%= render 'friend_search' %><br/>
   <h4>Pending Friend Requests</h4>
   <div id='pending-friends'>
-    <h5>Awaiting Response</h5>
+    <h5>Sent Requests</h5>
     <%= render partial: 'friend', collection: current_user.sent_requests, locals: {options: :cancel} %>
   </div>
   <div id='pending-requests'>
-    <h5>Added Me</h5>
+    <h5>Received Requests</h5>
     <%= render partial: 'friend', collection: current_user.received_requests, locals: {options: :approve} %>
   </div>
   <hr>

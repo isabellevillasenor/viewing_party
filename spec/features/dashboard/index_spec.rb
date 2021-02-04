@@ -68,7 +68,7 @@ describe 'Dashboard Index' do
 
       it 'shows new friends as pending until they have been approved' do
         friend = create(:user)
-        @user.add_friend(friend.email)
+        create(:friendship, user: @user, friend: friend)
 
         visit dashboard_path
 
@@ -86,7 +86,7 @@ describe 'Dashboard Index' do
 
       it 'shows pending friend requests with the option to approve or deny' do
         friend = create(:user)
-        friend.add_friend(@user.email)
+        create(:friendship, user: friend, friend: @user)
 
         visit dashboard_path
 
@@ -105,7 +105,7 @@ describe 'Dashboard Index' do
 
       it 'adds friends to approved friend list when approved' do
         friend = create(:user)
-        friend.add_friend(@user.email)
+        create(:friendship, user: friend, friend: @user)
 
         visit dashboard_path
 
@@ -138,7 +138,7 @@ describe 'Dashboard Index' do
 
       it 'does not add friends to friend list when not approved' do
         friend = create(:user)
-        friend.add_friend(@user.email)
+        create(:friendship, user: friend, friend: @user)
 
         visit dashboard_path
 
@@ -157,7 +157,7 @@ describe 'Dashboard Index' do
 
       it 'user can cancel pending friend requests' do
         friend = create(:user)
-        @user.add_friend(friend.email)
+        create(:friendship, user: @user, friend: friend)
 
         visit dashboard_path
         click_button('Cancel')
@@ -175,6 +175,12 @@ describe 'Dashboard Index' do
     end
 
     describe 'friend search' do
+      it 'has a search field to find friends by email' do
+        visit dashboard_path
+
+        expect(page).to have_field(:email, placeholder: 'Search by email')
+      end
+
       it 'locates friends who are existing users' do
         friend = create(:user)
 

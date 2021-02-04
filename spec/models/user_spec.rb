@@ -33,25 +33,6 @@ describe User do
       expect(user.name).to eq('Steve')
     end
 
-    describe '#add_friend' do
-      let(:user) { create(:user)}
-
-      it 'adds friends who are users' do
-        friend = create(:user)
-
-        result = user.add_friend(friend.email)
-        expect(user.friends).to eq([friend])
-      end
-
-      it 'returns nil if the email does not belong to a user' do
-        email = Faker::Internet.email
-
-        result = user.add_friend(email)
-        expect(result).to eq(nil)
-        expect(user.friends).to eq([])
-      end
-    end
-
     describe 'friend groups' do
       before(:each) do
         @user = create(:user)
@@ -60,22 +41,27 @@ describe User do
         @approved_friend = create(:user)
         @approved_inverse_friend = create(:user)
 
-        @user.add_friend(@added_friend.email)
-        @inverse_friend.add_friend(@user.email)
+        create(:friendship, user: @user, friend: @added_friend)
+        create(:friendship, user: @inverse_friend, friend: @user)
         create(:friendship, user: @user, friend: @approved_friend, status: 1)
         create(:friendship, user: @approved_inverse_friend, friend: @user, status: 1)
+      end
+
+      it '#all_friends' do
+        friends = [@added_friend, @inverse_friend, @approved_friend, @approved_inverse_friend]
+        expect(@user.all_friends.to_set).to eq(friends.to_set)
       end
 
       it '#approved_friends' do
         expect(@user.approved_friends.to_set).to eq([@approved_friend, @approved_inverse_friend].to_set)
       end
 
-      it '#pending_friends' do
-        expect(@user.pending_friends).to eq([@added_friend])
+      it '#sent_requests' do
+        expect(@user.sent_requests).to eq([@added_friend])
       end
 
-      it '#pending_requests' do
-        expect(@user.pending_requests).to eq([@inverse_friend])
+      it '#received_requests' do
+        expect(@user.received_requests).to eq([@inverse_friend])
       end
 
       it 'approved scope' do

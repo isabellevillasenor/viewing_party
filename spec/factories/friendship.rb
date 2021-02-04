@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :friendship do
     user
-    friend
+    association :friend, factory: :user
   end
 end

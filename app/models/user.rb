@@ -14,4 +14,9 @@ class User < ApplicationRecord
   def name
     self[:name].presence || email
   end
+
+  def add_friend(email)
+    friend = User.find_by_email(email)
+    friends << friend if friend
+  end
 end

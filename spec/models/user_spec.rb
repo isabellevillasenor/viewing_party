@@ -22,7 +22,7 @@ describe User do
     end
 
     it '#name' do
-      user = create(:user)
+      user = create(:user, name: "")
 
       expect(user.name).to eq(user.email)
 
@@ -38,15 +38,14 @@ describe User do
         friend = create(:user)
 
         result = user.add_friend(friend.email)
-        expect(result).to eq(true)
         expect(user.friends).to eq([friend])
       end
 
-      it 'returns false if the email does not belong to a user' do
+      it 'returns nil if the email does not belong to a user' do
         email = Faker::Internet.email
 
         result = user.add_friend(email)
-        expect(result).to eq(false)
+        expect(result).to eq(nil)
         expect(user.friends).to eq([])
       end
     end

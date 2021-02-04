@@ -6,8 +6,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:create]
 
-  resources :dashboard, only: [:index]
+  get '/dashboard', to: 'dashboard#index'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
+  post '/logout', to: 'sessions#delete'
 end

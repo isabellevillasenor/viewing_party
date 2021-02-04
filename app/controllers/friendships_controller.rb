@@ -1,6 +1,12 @@
 class FriendshipsController < ApplicationController
   def create
-    current_user.add_friend(params[:email]) || flash[:alert] = "Unable to locate user #{params[:email]}"
+    friend = User.find_by(email: params[:email])
+    if friend && current_user.all_friends.exclude?(friend)
+      Friendship.create(user: current_user, friend: friend)
+      flash[:notice] = 'Friend request sent!'
+    else
+      flash[:alert] = "Unable to locate user #{params[:email]}"
+    end
     redirect_to dashboard_path
   end
 

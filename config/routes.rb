@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'dashboard#index'
 
+  get '/discover', to: 'movies#index'
+
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   post '/logout', to: 'sessions#delete'

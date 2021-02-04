@@ -25,6 +25,7 @@ describe 'Dashboard Index' do
     expect(page).to have_button('Discover Movies')
   end
 
+
   describe 'friends section' do
     before(:each) do
       @user = create(:user)

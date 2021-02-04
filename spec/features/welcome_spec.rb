@@ -38,6 +38,6 @@ RSpec.describe 'Welcome' do
 
     click_button 'Register'
 
-    expect(current_path).to eq(dashboard_index_path)
+    expect(current_path).to eq(dashboard_path)
   end
 end

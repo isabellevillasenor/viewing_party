@@ -22,7 +22,7 @@ RSpec.describe 'user registration' do
     fill_in('user[name]', with: name)
     click_button('Register')
 
-    expect(current_path).to eq(dashboard_index_path)
+    expect(current_path).to eq(dashboard_path)
     expect(page).to have_content("Welcome, #{name}!")
   end
 
@@ -50,7 +50,7 @@ RSpec.describe 'user registration' do
     fill_in('user[password_confirmation]', with: password)
     click_button('Register')
 
-    expect(current_path).to eq(dashboard_index_path)
+    expect(current_path).to eq(dashboard_path)
     expect(page).to have_content("Welcome, #{email}!")
   end
 

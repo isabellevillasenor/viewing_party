@@ -11,7 +11,7 @@ describe 'Dashboard Index' do
 
     click_button 'Log In'
 
-    expect(current_path).to eq(dashboard_index_path)
+    expect(current_path).to eq(dashboard_path)
     expect(page).to have_content("Welcome, #{user.name}!")
   end
 
@@ -19,8 +19,8 @@ describe 'Dashboard Index' do
     user = User.create(email: 'gon@hxh.com', password: 'test', name: 'Gon')
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-    visit dashboard_index_path
-    
+    visit dashboard_path
+
     expect(page).to have_button('Discover Movies')
 
     # click_button 'Discover Movies'

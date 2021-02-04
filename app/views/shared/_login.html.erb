@@ -1,11 +1,11 @@
 <%= form_with model: @user, local: true do |f| %>
-  <%= f.label :name if confirmation %>
-  <%= f.text_field :name if confirmation %><br>
+  <%= f.label :name if new_user %>
+  <%= f.text_field :name if new_user %><br>
   <%= f.label :email %>
   <%= f.email_field :email %><br>
   <%= f.label :password %>
   <%= f.password_field :password %><br>
-  <%= f.label :password_confirmation if confirmation %>
-  <%= f.password_field :password_confirmation if confirmation %><br>
+  <%= f.label :password_confirmation if new_user %>
+  <%= f.password_field :password_confirmation if new_user %><br>
   <%= f.submit button_text %>
 <% end %>

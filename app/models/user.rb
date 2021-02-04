@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :parties, dependent: :destroy, inverse_of: :host
   has_many :invitations, dependent: :destroy, inverse_of: :party_person
 
+  before_save { email.try(:downcase!) }
+
   def name
     self[:name].presence || email
   end

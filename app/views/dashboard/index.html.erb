@@ -1,1 +1,18 @@
 <h1>Welcome, <%= current_user.name %>!</h1>
+
+<body>
+  <%= button_to 'Discover Movies' %>
+</body>
+
+<section class="friends">
+  <h3>Friends</h3>
+  <hr>
+  <%= render partial: 'friend_search' %><br/>
+</section>
+<br/>
+
+<section class="parties">
+  <h3>Movie Parties</h3>
+  <hr>
+</section>
+

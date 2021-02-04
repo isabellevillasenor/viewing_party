@@ -11,4 +11,18 @@ describe 'movies index page' do
     # click_button 'Find Top Rated Movies'
     # expect(current_path).to eq()
   end
+
+  it "has a search by movie title field with a button to Find Movies that redirects to ____" do
+    user = create(:user)
+
+    visit discover_path
+
+    expect(page).to have_content('Movie Title')
+    expect(page).to have_button('Find Movies')
+
+    # fill_in :title, with: ???
+    # click_button 'Find Movies'
+    # expect(current_path).to eq()
+    # expect(page).to have_content(SOME MOVIE'S INFO)
+  end
 end

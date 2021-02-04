@@ -8,35 +8,22 @@
   <h3>Friends</h3>
   <hr>
   <%= render 'friend_search' %><br/>
+  <h4>Pending Friend Requests</h4>
   <div id='pending-friends'>
-    <% current_user.pending_friends.each do |friend| %>
-      <div id='friend-<%= friend.id%>'>
-        <h6><%= friend.name %></h6>
-        <p><%= friend.email %></p>
-        <%= button_to 'Cancel', friendship_path(friend.join_id), method: :delete  %>
-      </div>
-    <% end %>
+    <h5>Awaiting Response</h5>
+    <%= render partial: 'friend', collection: current_user.pending_friends, locals: {options: :cancel} %>
   </div>
   <div id='pending-requests'>
-    <% current_user.pending_requests.each do |friend| %>
-      <div id='friend-<%= friend.id%>'>
-        <h6><%= friend.name %></h6>
-        <p><%= friend.email %></p>
-        <%= button_to 'Approve', friendship_path(friend.join_id), method: :patch %>
-        <%= button_to 'Deny', friendship_path(friend.join_id), method: :delete  %>
-      </div>
-    <% end %>
+    <h5>Added Me</h5>
+    <%= render partial: 'friend', collection: current_user.pending_requests, locals: {options: :approve} %>
   </div>
+  <hr>
   <div id='approved-friends'>
+    <h4>My Friends</h4>
   <% if current_user.approved_friends.empty? %>
     <p>You currently have no friends.</p>
   <% else %>
-    <% current_user.approved_friends.each do |friend| %>
-      <div id='friend-<%= friend.id%>'>
-        <h6><%= friend.name %></h6>
-        <p><%= friend.email %></p>
-      </div>
-    <% end %>
+     <%= render partial: 'friend', collection: current_user.approved_friends, locals: {options: :none}%>
   <% end %>
   </div>
 

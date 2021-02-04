@@ -2,8 +2,6 @@ require 'rails_helper'
 
 describe 'movies index page' do
   it 'has a Find Top Rated Movies button that redirects to ___' do
-    user = create(:user)
-
     visit discover_path
 
     expect(page).to have_button('Find Top Rated Movies')
@@ -12,12 +10,10 @@ describe 'movies index page' do
     # expect(current_path).to eq()
   end
 
-  it "has a search by movie title field with a button to Find Movies that redirects to ____" do
-    user = create(:user)
-
+  it 'has a search by movie title field with a button to Find Movies that redirects to ____' do
     visit discover_path
 
-    expect(page).to have_content('Movie Title')
+    expect(page).to have_field(:title, placeholder: 'Search by movie title')
     expect(page).to have_button('Find Movies')
 
     # fill_in :title, with: ???

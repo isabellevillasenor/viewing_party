@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'Dashboard Index' do
   it 'displays a welcome header for logged in user' do
-    user = User.create(email: 'gon@hxh.com', password: 'test', name: 'Gon')
-    
+    user = create(:user)
+
     visit login_path
 
     fill_in :email, with: user.email
@@ -16,16 +16,17 @@ describe 'Dashboard Index' do
   end
 
   it 'it has a button to discover movies that routes to /discover' do
-    user = User.create(email: 'gon@hxh.com', password: 'test', name: 'Gon')
+    user = create(:user)
+
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
     visit dashboard_path
-
+ 
     expect(page).to have_button('Discover Movies')
 
-    # click_button 'Discover Movies'
+    click_button 'Discover Movies'
 
-    # expect(current_path).to eq(discover_path)
+    expect(current_path).to eq(discover_path)
   end
 
   it 'it has a friends section to enter email and add friends' do

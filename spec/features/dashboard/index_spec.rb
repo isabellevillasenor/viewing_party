@@ -60,6 +60,120 @@ describe 'Dashboard Index' do
       end
     end
 
+    describe 'friend requests' do
+      before(:each) do
+        @user = create(:user)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      end
+
+      it 'shows new friends as pending until they have been approved' do
+        friend = create(:user)
+        @user.add_friend(friend.email)
+
+        visit dashboard_path
+
+        within('#pending-friends') do
+          expect(page).to have_content(friend.name)
+          expect(page).to have_content(friend.email)
+          expect(page).to have_button('Cancel')
+        end
+
+        within('#approved-friends') do
+          expect(page).not_to have_content(friend.name)
+          expect(page).not_to have_content(friend.email)
+        end
+      end
+
+      it 'shows pending friend requests with the option to approve or deny' do
+        friend = create(:user)
+        friend.add_friend(@user.email)
+
+        visit dashboard_path
+
+        within('#pending-requests') do
+          expect(page).to have_content(friend.name)
+          expect(page).to have_content(friend.email)
+          expect(page).to have_button('Approve')
+          expect(page).to have_button('Deny')
+        end
+
+        within('#approved-friends') do
+          expect(page).not_to have_content(friend.name)
+          expect(page).not_to have_content(friend.email)
+        end
+      end
+
+      it 'adds friends to approved friend list when approved' do
+        friend = create(:user)
+        friend.add_friend(@user.email)
+
+        visit dashboard_path
+
+        click_button('Approve')
+
+        within('#pending-requests') do
+          expect(page).not_to have_content(friend.name)
+          expect(page).not_to have_content(friend.email)
+        end
+
+        within('#approved-friends') do
+          expect(page).to have_content(friend.name)
+          expect(page).to have_content(friend.email)
+        end
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(friend)
+
+        visit dashboard_path
+
+        within('#approved-friends') do
+          expect(page).to have_content(@user.name)
+          expect(page).to have_content(@user.email)
+        end
+
+        within('#pending-friends') do
+          expect(page).not_to have_content(@user.name)
+          expect(page).not_to have_content(@user.email)
+        end
+      end
+
+      it 'does not add friends to friend list when not approved' do
+        friend = create(:user)
+        friend.add_friend(@user.email)
+
+        visit dashboard_path
+
+        click_button('Deny')
+
+        expect(page).not_to have_content(friend.name)
+        expect(page).not_to have_content(friend.email)
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(friend)
+
+        visit dashboard_path
+
+        expect(page).not_to have_content(@user.name)
+        expect(page).not_to have_content(@user.email)
+      end
+
+      it 'user can cancel pending friend requests' do
+        friend = create(:user)
+        @user.add_friend(friend.email)
+
+        visit dashboard_path
+        click_button('Cancel')
+
+        expect(page).not_to have_content(friend.name)
+        expect(page).not_to have_content(friend.email)
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(friend)
+
+        visit dashboard_path
+
+        expect(page).not_to have_content(@user.name)
+        expect(page).not_to have_content(@user.email)
+      end
+    end
+
     describe 'friend search' do
       it 'locates friends who are existing users' do
         friend = create(:user)

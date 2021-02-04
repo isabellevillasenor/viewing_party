@@ -27,11 +27,11 @@ class User < ApplicationRecord
   end
 
   def pending_friends
-    friends.merge(Friendship.pending)
+    friends.select('users.*, friendships.id AS join_id').merge(Friendship.pending)
   end
 
   def pending_requests
-    inverse_friends.merge(Friendship.pending)
+    inverse_friends.select('users.*, friendships.id AS join_id').merge(Friendship.pending)
   end
 
   def approved_friends

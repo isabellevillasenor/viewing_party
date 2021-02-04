@@ -13,7 +13,7 @@
       <div id='friend-<%= friend.id%>'>
         <h6><%= friend.name %></h6>
         <p><%= friend.email %></p>
-        <%= button_to 'Cancel' %>
+        <%= button_to 'Cancel', friendship_path %>
       </div>
     <% end %>
   </div>
@@ -22,7 +22,7 @@
       <div id='friend-<%= friend.id%>'>
         <h6><%= friend.name %></h6>
         <p><%= friend.email %></p>
-        <%= button_to 'Approve' %>
+        <%= button_to 'Approve', friendship_path(friend.join_id), method: :patch %>
         <%= button_to 'Deny' %>
       </div>
     <% end %>
@@ -31,7 +31,7 @@
   <% if current_user.approved_friends.empty? %>
     <p>You currently have no friends.</p>
   <% else %>
-    <% @user.all_friends.each do |friend| %>
+    <% current_user.approved_friends.each do |friend| %>
       <div id='friend-<%= friend.id%>'>
         <h6><%= friend.name %></h6>
         <p><%= friend.email %></p>

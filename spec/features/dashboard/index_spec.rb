@@ -81,7 +81,7 @@ describe 'Dashboard Index' do
         click_button('Add Friend')
 
         expect(page).to have_content("Unable to locate user #{email}")
-        expect(page).not_to have_content(email)
+        within('.friends') {expect(page).not_to have_content(email)}
       end
     end
   end

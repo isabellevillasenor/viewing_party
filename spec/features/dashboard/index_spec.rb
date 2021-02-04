@@ -25,28 +25,64 @@ describe 'Dashboard Index' do
     expect(page).to have_button('Discover Movies')
   end
 
-  it 'it has a friends section to enter email and add friends' do
-    # user1 = User.create(email: 'gon@hxh.com', password: 'test', name: 'Gon')
-    # user2 = user1.friends.create(email: 'killua@hxh.com', password: 'test', name: 'Killua')
+  describe 'friends section' do
+    before(:each) do
+      @user = create(:user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+    end
 
-    #visit gon dashboard
-    # expect(page).to have_content('Friends')
+    it 'exists' do
+      visit dashboard_path
 
-    # fill_in :email, with: user2.email
-    # click_button 'Add Friend'
+      expect(page).to have_content('Friends')
+      within('.friends') {expect(page).to have_button('Add Friend')}
+    end
 
-    # expect(page).to have_content('Killua')
-  end
+    it 'starts with no friends' do
+      visit dashboard_path
 
-  describe 'it has a list of already approved friends' do
+      expect(page).to have_content('You currently have no friends.')
+    end
 
-  end
+    it "displays the user's friends" do
+      friends = create_list(:friend, 3, user: @user)
+      not_friend = create(:user)
 
-  describe 'it displays a message if no friends added' do
+      visit dashboard_path
 
-  end
+      within('.friends') do
+        friends.each do |friend|
+          expect(page).to have_content(friend.name)
+          expect(page).to have_content(friend.email)
+        end
+        expect(page).not_to have_content(not_friend.name)
+        expect(page).not_to have_content(not_friend.email)
+      end
+    end
 
-  describe 'it displays an error message if friend is not in database' do
+    describe 'friend search' do
+      it 'locates friends who are existing users' do
+        friend = create(:user)
 
+        visit dashboard_path
+
+        fill_in(:email, with: friend.email)
+        click_button('Add Friend')
+
+        expect(page).to have_content(friend.name)
+        expect(page).to have_content(friend.email)
+      end
+
+      it 'displays an error message if the friend cannot be located' do
+        visit dashboard_path
+
+        email = Faker::Internet.email
+        fill_in(:email, with: email)
+        click_button('Add Friend')
+
+        expect(page).to have_content("Unable to locate user #{email}")
+        expect(page).not_to have_content(email)
+      end
+    end
   end
 end

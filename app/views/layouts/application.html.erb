@@ -9,7 +9,13 @@
   </head>
 
   <body>
-   
+    <div class='top-container'>
+      <% if current_user %>
+        <h1>Welcome <%= current_user.name %>}!<h1>
+      <% else %>
+        <h1>Welcome to Viewing Party!</h1>
+      <% end %>
+    </div>
 
     <main>
       <% flash.each do |notice, messages| %>
@@ -25,7 +31,7 @@
       <% end %>
       <%= yield %>
     </main>
-    
+
     <footer>
       <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" alt="The MovieDB Logo" width="75px" style="margin:10px" >
       <div>

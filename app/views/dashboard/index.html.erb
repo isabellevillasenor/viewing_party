@@ -7,17 +7,39 @@
 <section class="friends">
   <h3>Friends</h3>
   <hr>
-  <%= render partial: 'friend_search' %><br/>
-  <% if @friends.empty? %>
+  <%= render 'friend_search' %><br/>
+  <div id='pending-friends'>
+    <% current_user.pending_friends.each do |friend| %>
+      <div id='friend-<%= friend.id%>'>
+        <h6><%= friend.name %></h6>
+        <p><%= friend.email %></p>
+        <%= button_to 'Cancel' %>
+      </div>
+    <% end %>
+  </div>
+  <div id='pending-requests'>
+    <% current_user.pending_requests.each do |friend| %>
+      <div id='friend-<%= friend.id%>'>
+        <h6><%= friend.name %></h6>
+        <p><%= friend.email %></p>
+        <%= button_to 'Approve' %>
+        <%= button_to 'Deny' %>
+      </div>
+    <% end %>
+  </div>
+  <div id='approved-friends'>
+  <% if current_user.approved_friends.empty? %>
     <p>You currently have no friends.</p>
   <% else %>
-    <% @friends.each do |friend| %>
+    <% @user.all_friends.each do |friend| %>
       <div id='friend-<%= friend.id%>'>
         <h6><%= friend.name %></h6>
         <p><%= friend.email %></p>
       </div>
     <% end %>
   <% end %>
+  </div>
+
 </section>
 <br/>
 

@@ -26,7 +26,15 @@ class User < ApplicationRecord
     friends << friend if friend && friends.exclude?(friend)
   end
 
-  def all_friends
-    friends + inverse_friends
+  def pending_friends
+    friends.merge(Friendship.pending)
+  end
+
+  def pending_requests
+    inverse_friends.merge(Friendship.pending)
+  end
+
+  def approved_friends
+    friends.merge(Friendship.approved) + inverse_friends.merge(Friendship.approved)
   end
 end

@@ -17,8 +17,8 @@ class User < ApplicationRecord
 
   before_save { email.try(:downcase!) }
 
-  scope :pending_friends, -> { select('users.*, friendships.id AS join_id').merge(Friendship.pending) }
-  scope :approved, -> { merge(Friendship.approved) }
+  scope :pending_friends, -> { select('users.*, friendships.id AS join_id').where(friendships: {status: 0}) }
+  scope :approved, -> { where(friendships: {status: 1}) }
 
   class << self
     alias pending_requests pending_friends

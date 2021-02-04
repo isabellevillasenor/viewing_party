@@ -1,7 +1,6 @@
-<h1>Welcome, <%= current_user.name %>!</h1>
 
 <body>
-  <%= button_to 'Discover Movies' %>
+  <%= button_to 'Discover Movies', discover_path, :method => 'get' %>
 </body>
 
 <section class="friends">
@@ -15,4 +14,3 @@
   <h3>Movie Parties</h3>
   <hr>
 </section>
-

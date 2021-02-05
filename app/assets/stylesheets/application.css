@@ -62,5 +62,17 @@ input[type=submit] {
 
 input[type=submit]:hover {
   background-color: #9886CD;
-  
+
+}
+
+.friend {
+  border: 1px solid black;
+  display: inline-block;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.friend h6 {
+  font-size: 20px;
 }

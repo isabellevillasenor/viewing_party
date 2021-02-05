@@ -6,10 +6,13 @@ Rails.application.routes.draw do
 
   resources :users, only: [:create]
 
-  resources :dashboard, only: [:index]
+  get '/dashboard', to: 'dashboard#index'
 
   get '/discover', to: 'movies#index'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
+  post '/logout', to: 'sessions#delete'
+
+  resources :friendships, only: [:create, :update, :destroy]
 end

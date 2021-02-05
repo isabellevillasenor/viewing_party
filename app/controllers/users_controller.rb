@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to dashboard_index_path
+      redirect_to dashboard_path
     else
       flash.now[:errors] = @user.errors.full_messages
       render :new, obj: @user
@@ -17,8 +17,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    user_info = params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    user_info[:email] = user_info[:email].downcase
-    user_info
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end

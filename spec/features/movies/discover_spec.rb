@@ -10,15 +10,14 @@ describe 'movies discover page' do
     expect(current_path).to eq(movies_path)
   end
 
-  it 'has a search by movie title field with a button to Find Movies that redirects to ____' do
+  it 'has a search by movie title field with a button to Find Movies that redirects to movies index page' do
     visit discover_path
 
     expect(page).to have_field(:title, placeholder: 'Search by movie title')
     expect(page).to have_button('Find Movies')
 
-    # fill_in :title, with: ???
-    # click_button 'Find Movies'
-    # expect(current_path).to eq()
-    # expect(page).to have_content(SOME MOVIE'S INFO)
+    fill_in :title, with: 'Phoenix'
+    click_button 'Find Movies'
+    expect(current_path).to eq(movies_path)
   end
 end

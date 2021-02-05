@@ -1,3 +1,9 @@
 <div class="search">
   <%= render 'movie_search' %><br/>
 </div>
+
+<ul>
+  <% @movies.each do |movie| %>
+    <li><%= movie.title %></li>
+  <% end %>
+</ul>

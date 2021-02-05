@@ -49,6 +49,18 @@ h1 {
   padding-left: 12px;
 }
 
+.discover form {
+  padding-top: 12px;
+  flex-direction: column;
+}
+
+.search {
+  padding-top: 12px;
+  padding-left: 100px;
+  display: flex;
+  justify-content: space-around;
+}
+
 input[type=submit] {
   background-color: #313646;
   border: 1px solid #9886CD;

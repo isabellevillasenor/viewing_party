@@ -1,11 +1,3 @@
-
-<%= button_to 'Find Top Rated Movies' %>
-
-<h3>OR</h3>
-
-<%= form_with model: @movie, local: true do |f| %>
-
-  <%= f.search_field :title, placeholder: 'Search by movie title' %>
-
-  <%= f.submit 'Find Movies' %>
-<% end %>
+<div class="search">
+  <%= render 'movie_search' %><br/>
+</div>

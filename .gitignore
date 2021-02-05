@@ -15,6 +15,7 @@
 
 /node_modules
 /yarn-error.log
+application.yml
 
 # Ignore test coverage
 /coverage/*

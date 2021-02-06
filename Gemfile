@@ -40,6 +40,7 @@ group :test do
   gem 'faker'
   gem 'factory_bot_rails'
   gem 'webmock'
+  gem 'vcr'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

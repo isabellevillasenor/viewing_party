@@ -1,14 +1,13 @@
 class MoviesController < ApplicationController
   def index
-    if params[:title]
-      @movies = search_movies
-    else
-      @movies = top_movies
-    end
+    @movies = if params[:title]
+                search_movies
+              else
+                top_movies
+              end
   end
 
-  def discover
-  end
+  def discover; end
 
   private
 

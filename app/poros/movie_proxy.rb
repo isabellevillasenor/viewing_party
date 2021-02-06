@@ -8,6 +8,4 @@ class MovieProxy
     @vote_average = data[:vote_average]
     @id = data[:id]
   end
-
-  
 end

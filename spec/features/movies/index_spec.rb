@@ -8,11 +8,17 @@ describe 'movies index page' do
     expect(current_path).to eq(movies_path)
   end
 
-  it 'returns the top 40 movies' do
+  it 'returns the top 40 movies and their vote average' do
     visit movies_path
-
+    
     click_button 'Find Top Rated Movies'
+
+    movie = page.all('li').first
+
     expect(page).to have_css('li', count: 40)
+    expect(movie.has_link?).to be true
+    expect(movie).to have_content('Vote Average:')
+    # binding.pry
   end
 
   it 'has a search by movie title field with a button to Find Movies that redirects to movies index page' do

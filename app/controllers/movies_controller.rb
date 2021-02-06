@@ -2,7 +2,7 @@ class MoviesController < ApplicationController
   def index
     @movies = if params[:title]
                 search_movies
-              else
+              elsif params[:q]
                 top_movies
               end
   end

@@ -18,7 +18,6 @@ describe 'movies index page' do
     expect(page).to have_css('li', count: 40)
     expect(movie.has_link?).to be true
     expect(movie).to have_content('Vote Average:')
-    # binding.pry
   end
 
   it 'has a search by movie title field with a button to Find Movies that redirects to movies index page' do

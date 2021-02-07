@@ -1,0 +1,80 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.themoviedb.org/3/movie/602?api_key=<TMDB_API_KEY>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.0.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Sat, 06 Feb 2021 22:35:44 GMT
+      Server:
+      - openresty
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, POST, PUT, DELETE, OPTIONS
+      Access-Control-Expose-Headers:
+      - ETag, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, Retry-After,
+        Content-Length, Content-Range
+      Cache-Control:
+      - public, max-age=21600
+      X-Memc:
+      - HIT
+      X-Memc-Key:
+      - e4d6fe5b01d88e8180e0821859bc5e1c3b5e3a13
+      X-Memc-Age:
+      - '16691'
+      X-Memc-Expires:
+      - '4909'
+      Etag:
+      - W/"65506447f3fa41bc1ec45d27dec35d16"
+      Last-Modified:
+      - Sat, 06 Feb 2021 22:35:44 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - Hit from cloudfront
+      Via:
+      - 1.1 94bd5e4f47540501369a53d4ae35d3b3.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - DEN50-C2
+      X-Amz-Cf-Id:
+      - C7h8GLaRx8cw_5ecAtAzOQVJrQTeQiUl914dLqYGriW26wffngUzlg==
+      Age:
+      - '4870'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"adult":false,"backdrop_path":"/uw4SnKFZ453Gxmj5XR5Susj8TNo.jpg","belongs_to_collection":{"id":304378,"name":"Independence
+        Day Collection","poster_path":"/AuBMbv3gSAdTaEIzcUySRETIauY.jpg","backdrop_path":"/p7oqa94XgNGVMazXwR49QfyGgtx.jpg"},"budget":75000000,"genres":[{"id":28,"name":"Action"},{"id":12,"name":"Adventure"},{"id":878,"name":"Science
+        Fiction"}],"homepage":"","id":602,"imdb_id":"tt0116629","original_language":"en","original_title":"Independence
+        Day","overview":"On July 2, a giant alien mothership enters orbit around Earth
+        and deploys several dozen saucer-shaped ''destroyer'' spacecraft that quickly
+        lay waste to major cities around the planet. On July 3, the United States
+        conducts a coordinated counterattack that fails. On July 4, a plan is devised
+        to gain access to the interior of the alien mothership in space, in order
+        to plant a nuclear missile.","popularity":36.914,"poster_path":"/2e5t7edZcGcE7IQhr3hbdrJudUW.jpg","production_companies":[{"id":25,"logo_path":"/qZCc1lty5FzX30aOCVRBLzaVmcp.png","name":"20th
+        Century Fox","origin_country":"US"},{"id":347,"logo_path":null,"name":"Centropolis
+        Entertainment","origin_country":""}],"production_countries":[{"iso_3166_1":"US","name":"United
+        States of America"}],"release_date":"1996-06-25","revenue":817400891,"runtime":145,"spoken_languages":[{"english_name":"English","iso_639_1":"en","name":"English"}],"status":"Released","tagline":"Earth.
+        Take a good look. It might be your last.","title":"Independence Day","video":false,"vote_average":6.8,"vote_count":7056}'
+  recorded_at: Sat, 06 Feb 2021 23:56:54 GMT
+recorded_with: VCR 6.0.0

@@ -7,7 +7,9 @@ class MoviesController < ApplicationController
               end
   end
 
-  def discover; end
+  def show
+    @movie = movie_details
+  end
 
   private
 
@@ -43,5 +45,11 @@ class MoviesController < ApplicationController
     combined_results.map do |result|
       MovieProxy.new(result)
     end
+  end
+
+  def movie_details
+    response = conn.get("movie/#{params[:id]}?api_key=#{ENV['TMDB_API_KEY']}")
+    json = JSON.parse(response.body, symbolize_names: true)
+    MovieProxy.new(json)
   end
 end

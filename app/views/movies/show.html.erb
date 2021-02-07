@@ -1,0 +1,15 @@
+<h1><%= @movie.title %></h1>
+
+<p><strong>Vote Average: </strong><%= @movie.vote_average %> 
+   <strong>Runtime: </strong><%= @movie.runtime %>
+   <strong>Genre(s): </strong><%= @movie.genres.join(', ') %></p>
+
+<section id="summary">
+  <h4>Summary</h4>
+  <p><%= @movie.overview %></p>
+</section>
+
+<section id="cast">
+  <h4>Cast</h4>
+  <p><% @cast %></p>
+</section>

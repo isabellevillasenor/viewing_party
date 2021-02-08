@@ -9,6 +9,7 @@ class MoviesController < ApplicationController
 
   def show
     @movie = movie_details
+    @cast = cast_details
   end
 
   private
@@ -51,5 +52,13 @@ class MoviesController < ApplicationController
     response = conn.get("movie/#{params[:id]}?api_key=#{ENV['TMDB_API_KEY']}")
     json = JSON.parse(response.body, symbolize_names: true)
     MovieProxy.new(json)
+  end
+
+  def cast_details
+    response = conn.get("movie/#{params[:id]}/credits?api_key=#{ENV['TMDB_API_KEY']}")
+    json = JSON.parse(response.body, symbolize_names: true)
+    json[:cast][0..9].map do |actor|
+      Actor.new(actor)
+    end
   end
 end

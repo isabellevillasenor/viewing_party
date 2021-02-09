@@ -8,6 +8,7 @@ RSpec.describe MoviesFacade do
 
         expect(movies).to be_an(Array)
         expect(movies[0]).to be_a(MovieProxy)
+        expect(movies.size).to eq(40)
       end
     end
   end

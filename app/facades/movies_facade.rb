@@ -16,5 +16,22 @@ class MoviesFacade
         MovieProxy.new(result)
       end
     end
+
+    def search_movies(search_phrase)
+      response = conn.get("search/movie?api_key=#{ENV['TMDB_API_KEY']}&query=#{search_phrase.parameterize}")
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      if json[:total_pages] > 1
+        response2 = conn.get("search/movie?api_key=#{ENV['TMDB_API_KEY']}&query=#{search_phrase.parameterize}&page=2")
+        json2 = JSON.parse(response2.body, symbolize_names: true)
+        combined_results = json[:results] + json2[:results]
+      else
+        combined_results = json[:results]
+      end
+
+      combined_results.map do |result|
+        MovieProxy.new(result)
+      end
+    end
   end
 end

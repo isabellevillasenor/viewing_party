@@ -1,5 +1,7 @@
 <h1><%= @movie.title %></h1>
 
+<%= button_to 'Create Viewing Party!', new_party_path, method: :get %>
+
 <p><strong>Vote Average: </strong><%= @movie.vote_average %>
    <strong>Runtime: </strong><%= @movie.runtime %>
    <strong>Genre(s): </strong><%= @movie.genres.join(', ') %></p>
@@ -14,5 +16,14 @@
   <% @cast.each do |actor| %>
     <p><%= actor.name %> as <%= actor.character %></p>
   <% end %>
+</section>
 
+<section id="reviews">
+  <h4><%= @reviews.size %> Reviews</h4>
+  <% @reviews.each do |review| %>
+    <section id="review-<%= review.id %>">
+    <strong>Author: <%= review.author %></strong>
+    <p><%= review.content %></p>
+    </section>
+  <% end %>
 </section>

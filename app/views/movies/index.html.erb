@@ -1,11 +1,11 @@
+<div class="search">
+  <%= render 'movie_search' %><br/>
+</div>
 
-<%= button_to 'Find Top Rated Movies' %>
-
-<h3>OR</h3>
-
-<%= form_with model: @movie, local: true do |f| %>
-
-  <%= f.search_field :title, placeholder: 'Search by movie title' %>
-
-  <%= f.submit 'Find Movies' %>
+<% if @movies %>
+  <ul>
+    <% @movies.each do |movie| %>
+      <li><%= link_to movie.title %> Vote Average: <%= movie.vote_average%></li>
+    <% end %>
+  </ul>
 <% end %>

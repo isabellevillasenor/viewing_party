@@ -22,4 +22,36 @@ RSpec.describe MoviesFacade do
       end
     end
   end
+
+  describe '.movie_details' do
+    it 'gets details for the specified movie' do
+      VCR.use_cassette('movie_details') do
+        movie = MoviesFacade.movie_details(324857)
+
+        expect(movie).to be_a(MovieProxy)
+      end
+    end
+  end
+
+  describe '.cast_details' do
+    it 'gets the cast for the specified movie' do
+      VCR.use_cassette('movie_details') do
+        cast = MoviesFacade.cast_details(324857)
+
+        expect(cast).to be_an(Array)
+        expect(cast[0]).to be_an(Actor)
+      end
+    end
+  end
+
+  describe '.review_details' do
+    it 'gets reviews for the specified movie' do
+      VCR.use_cassette('movie_details') do
+        reviews = MoviesFacade.review_details(324857)
+
+        expect(reviews).to be_an(Array)
+        expect(reviews[0]).to be_a(Review)
+      end
+    end
+  end
 end

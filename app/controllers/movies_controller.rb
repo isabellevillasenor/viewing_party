@@ -10,6 +10,7 @@ class MoviesController < ApplicationController
   def show
     @movie = movie_details
     @cast = cast_details
+    @reviews = review_details
   end
 
   private
@@ -59,6 +60,25 @@ class MoviesController < ApplicationController
     json = JSON.parse(response.body, symbolize_names: true)
     json[:cast][0..9].map do |actor|
       Actor.new(actor)
+    end
+  end
+
+  def review_details
+    response = conn.get("movie/#{params[:id]}/reviews?api_key=#{ENV['TMDB_API_KEY']}")
+    json = JSON.parse(response.body, symbolize_names: true)
+    if json[:total_pages] > 1
+      combined_results = json[:results]
+      (json[:total_pages] - 1).times do |index|
+        response2 = conn.get("movie/#{params[:id]}/reviews?api_key=#{ENV['TMDB_API_KEY']}&page=#{index + 2}")
+        json2 = JSON.parse(response2.body, symbolize_names: true)
+        combined_results = combined_results + json2[:results]
+      end
+    else
+      combined_results = json[:results]
+    end
+
+    combined_results.map do |result|
+      Review.new(result)
     end
   end
 end

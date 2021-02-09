@@ -5,7 +5,26 @@
 <section class="friends">
   <h3>Friends</h3>
   <hr>
-  <%= render partial: 'friend_search' %><br/>
+  <%= render 'friend_search' %><br/>
+  <h4>Pending Friend Requests</h4>
+  <div id='pending-friends'>
+    <h5>Sent Requests</h5>
+    <%= render partial: 'friend', collection: current_user.sent_requests, locals: {options: :cancel} %>
+  </div>
+  <div id='pending-requests'>
+    <h5>Received Requests</h5>
+    <%= render partial: 'friend', collection: current_user.received_requests, locals: {options: :approve} %>
+  </div>
+  <hr>
+  <div id='approved-friends'>
+    <h4>My Friends</h4>
+  <% if current_user.approved_friends.empty? %>
+    <p>You currently have no friends.</p>
+  <% else %>
+     <%= render partial: 'friend', collection: current_user.approved_friends, locals: {options: :none}%>
+  <% end %>
+  </div>
+
 </section>
 <br/>
 
@@ -13,3 +32,5 @@
   <h3>Movie Parties</h3>
   <hr>
 </section>
+
+<%= button_to 'Log Out', logout_path %>

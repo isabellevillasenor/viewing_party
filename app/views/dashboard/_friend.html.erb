@@ -1,0 +1,10 @@
+<div id='friend-<%= friend.id%>' class='friend'>
+  <h6><%= friend.name %></h6>
+  <p><%= friend.email %></p>
+  <% if options == :approve %>
+    <%= button_to 'Approve', friendship_path(friend.join_id), method: :patch %>
+    <%= button_to 'Deny', friendship_path(friend.join_id), method: :delete  %>
+  <% elsif options == :cancel %>
+    <%= button_to 'Cancel', friendship_path(friend.join_id), method: :delete  %>
+  <% end %>
+</div>

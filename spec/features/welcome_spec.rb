@@ -16,9 +16,7 @@ RSpec.describe 'Welcome' do
 
   it 'has a button to log in' do
     expect(page).to have_button('Log In')
-  end
 
-  it 'reroutes to login page' do
     click_button 'Log In'
 
     expect(current_path).to eq(login_path)
@@ -26,18 +24,5 @@ RSpec.describe 'Welcome' do
 
   it 'has a button to register' do
     expect(page).to have_link('Register', href: registration_path)
-  end
-
-  it 'logs in user and takes them to their dashboard after registering' do
-    click_link 'Register'
-
-    fill_in 'user[name]', with: name
-    fill_in 'user[email]', with: email
-    fill_in 'user[password]', with: password
-    fill_in 'user[password_confirmation]', with: password
-
-    click_button 'Register'
-
-    expect(current_path).to eq(dashboard_path)
   end
 end

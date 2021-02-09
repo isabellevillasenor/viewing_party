@@ -1,7 +1,4 @@
-<%= form_with model: @user, local: true do |f| %>
-
-  <%= f.label :email, "Friend's Email"%>
-  <%= f.email_field :email%>
-
+<%= form_with url: friendships_path, local: true do |f| %>
+  <%= f.email_field :email, placeholder: 'Search by email'%>
   <%= f.submit 'Add Friend' %>
 <% end %>

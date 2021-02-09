@@ -21,36 +21,189 @@ describe 'Dashboard Index' do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
     visit dashboard_path
- 
+
     expect(page).to have_button('Discover Movies')
-
-    click_button 'Discover Movies'
-
-    expect(current_path).to eq(discover_path)
   end
 
-  it 'it has a friends section to enter email and add friends' do
-    # user1 = User.create(email: 'gon@hxh.com', password: 'test', name: 'Gon')
-    # user2 = user1.friends.create(email: 'killua@hxh.com', password: 'test', name: 'Killua')
 
-    #visit gon dashboard
-    # expect(page).to have_content('Friends')
+  describe 'friends section' do
+    before(:each) do
+      @user = create(:user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+    end
 
-    # fill_in :email, with: user2.email
-    # click_button 'Add Friend'
+    it 'exists' do
+      visit dashboard_path
 
-    # expect(page).to have_content('Killua')
-  end
+      expect(page).to have_content('Friends')
+      within('.friends') {expect(page).to have_button('Add Friend')}
+    end
 
-  describe 'it has a list of already approved friends' do
+    it 'starts with no friends' do
+      visit dashboard_path
 
-  end
+      expect(page).to have_content('You currently have no friends.')
+    end
 
-  describe 'it displays a message if no friends added' do
+    it "displays the user's friends" do
+      friends = create_list(:friend, 3, user: @user)
+      not_friend = create(:user)
 
-  end
+      visit dashboard_path
 
-  describe 'it displays an error message if friend is not in database' do
+      within('.friends') do
+        friends.each do |friend|
+          expect(page).to have_content(friend.name)
+          expect(page).to have_content(friend.email)
+        end
+        expect(page).not_to have_content(not_friend.name)
+        expect(page).not_to have_content(not_friend.email)
+      end
+    end
 
+    describe 'friend requests' do
+      before(:each) do
+        @user = create(:user)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      end
+
+      it 'shows new friends as pending until they have been approved' do
+        friend = create(:user)
+        create(:friendship, user: @user, friend: friend)
+
+        visit dashboard_path
+
+        within('#pending-friends') do
+          expect(page).to have_content(friend.name)
+          expect(page).to have_content(friend.email)
+          expect(page).to have_button('Cancel')
+        end
+
+        within('#approved-friends') do
+          expect(page).not_to have_content(friend.name)
+          expect(page).not_to have_content(friend.email)
+        end
+      end
+
+      it 'shows pending friend requests with the option to approve or deny' do
+        friend = create(:user)
+        create(:friendship, user: friend, friend: @user)
+
+        visit dashboard_path
+
+        within('#pending-requests') do
+          expect(page).to have_content(friend.name)
+          expect(page).to have_content(friend.email)
+          expect(page).to have_button('Approve')
+          expect(page).to have_button('Deny')
+        end
+
+        within('#approved-friends') do
+          expect(page).not_to have_content(friend.name)
+          expect(page).not_to have_content(friend.email)
+        end
+      end
+
+      it 'adds friends to approved friend list when approved' do
+        friend = create(:user)
+        create(:friendship, user: friend, friend: @user)
+
+        visit dashboard_path
+
+        click_button('Approve')
+
+        within('#pending-requests') do
+          expect(page).not_to have_content(friend.name)
+          expect(page).not_to have_content(friend.email)
+        end
+
+        within('#approved-friends') do
+          expect(page).to have_content(friend.name)
+          expect(page).to have_content(friend.email)
+        end
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(friend)
+
+        visit dashboard_path
+
+        within('#approved-friends') do
+          expect(page).to have_content(@user.name)
+          expect(page).to have_content(@user.email)
+        end
+
+        within('#pending-friends') do
+          expect(page).not_to have_content(@user.name)
+          expect(page).not_to have_content(@user.email)
+        end
+      end
+
+      it 'does not add friends to friend list when not approved' do
+        friend = create(:user)
+        create(:friendship, user: friend, friend: @user)
+
+        visit dashboard_path
+
+        click_button('Deny')
+
+        expect(page).not_to have_content(friend.name)
+        expect(page).not_to have_content(friend.email)
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(friend)
+
+        visit dashboard_path
+
+        expect(page).not_to have_content(@user.name)
+        expect(page).not_to have_content(@user.email)
+      end
+
+      it 'user can cancel pending friend requests' do
+        friend = create(:user)
+        create(:friendship, user: @user, friend: friend)
+
+        visit dashboard_path
+        click_button('Cancel')
+
+        expect(page).not_to have_content(friend.name)
+        expect(page).not_to have_content(friend.email)
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(friend)
+
+        visit dashboard_path
+
+        expect(page).not_to have_content(@user.name)
+        expect(page).not_to have_content(@user.email)
+      end
+    end
+
+    describe 'friend search' do
+      it 'has a search field to find friends by email' do
+        visit dashboard_path
+
+        expect(page).to have_field(:email, placeholder: 'Search by email')
+      end
+
+      it 'locates friends who are existing users' do
+        friend = create(:user)
+
+        visit dashboard_path
+
+        fill_in(:email, with: friend.email)
+        click_button('Add Friend')
+
+        expect(page).to have_content(friend.name)
+        expect(page).to have_content(friend.email)
+      end
+
+      it 'displays an error message if the friend cannot be located' do
+        visit dashboard_path
+
+        email = Faker::Internet.email
+        fill_in(:email, with: email)
+        click_button('Add Friend')
+
+        expect(page).to have_content("Unable to locate user #{email}")
+        within('.friends') {expect(page).not_to have_content(email)}
+      end
+    end
   end
 end

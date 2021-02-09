@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/registration', to: 'users#new'
 
   resources :users, only: [:create]
+  resources :parties, only: [:new]
 
   get '/dashboard', to: 'dashboard#index'
 

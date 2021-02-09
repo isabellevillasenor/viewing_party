@@ -76,6 +76,6 @@ describe 'Movies Show Page' do
 
       click_button
       expect(current_path).to eq(new_party_path)
-    end 
+    end
   end
 end

@@ -71,6 +71,9 @@ describe 'Movies Show Page' do
 
   it 'has a button to create a viewing party' do
     VCR.use_cassette('movie_details') do
+      user = create :user
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
       visit "/movies/#{@movie.id}"
       expect(page).to have_button('Create Viewing Party!')
 

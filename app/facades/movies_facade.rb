@@ -1,9 +1,5 @@
 class MoviesFacade
   class << self
-    def conn
-      @conn ||= Faraday.new(url: 'https://api.themoviedb.org/3')
-    end
-
     def top_movies
       results = MovieDbService.top_movies
       results.map do |result|

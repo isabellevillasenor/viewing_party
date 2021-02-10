@@ -1,54 +1,46 @@
 class MovieDbService
   class << self
     def top_movies
-      response = conn.get("movie/top_rated?api_key=#{ENV['TMDB_API_KEY']}")
-      response2 = conn.get("movie/top_rated?api_key=#{ENV['TMDB_API_KEY']}&page=2")
-      json = JSON.parse(response.body, symbolize_names: true)
-      json2 = JSON.parse(response2.body, symbolize_names: true)
-
-      json[:results] + json2[:results]
+      page_1 = get_data('movie/top_rated?')
+      page_2 = get_data('movie/top_rated?', '&page=2')
+      page_1[:results] + page_2[:results]
     end
 
     def search_movies(search_phrase)
-      response = conn.get("search/movie?api_key=#{ENV['TMDB_API_KEY']}&query=#{search_phrase.parameterize}")
-      json = JSON.parse(response.body, symbolize_names: true)
-
-      if json[:total_pages] > 1
-        response2 = conn.get("search/movie?api_key=#{ENV['TMDB_API_KEY']}&query=#{search_phrase.parameterize}&page=2")
-        json2 = JSON.parse(response2.body, symbolize_names: true)
-        json[:results] + json2[:results]
+      page_1 = get_data("search/movie?query=#{search_phrase.parameterize}&")
+      if page_1[:total_pages] > 1
+        page_2 = get_data("search/movie?query=#{search_phrase.parameterize}&", 2)
+        page_1[:results] += page_2[:results]
       else
-        json[:results]
+        page_1[:results]
       end
     end
 
     def movie_details(movie_id)
-      response = conn.get("movie/#{movie_id}?api_key=#{ENV['TMDB_API_KEY']}")
-      JSON.parse(response.body, symbolize_names: true)
+      get_data("movie/#{movie_id}?")
     end
 
     def cast_details(movie_id)
-      response = conn.get("movie/#{movie_id}/credits?api_key=#{ENV['TMDB_API_KEY']}")
-      JSON.parse(response.body, symbolize_names: true)
+      get_data("movie/#{movie_id}/credits?")
     end
 
     def review_details(movie_id)
-      response = conn.get("movie/#{movie_id}/reviews?api_key=#{ENV['TMDB_API_KEY']}")
-      json = JSON.parse(response.body, symbolize_names: true)
-      if json[:total_pages] > 1
-        combined_results = json[:results]
-        (json[:total_pages] - 1).times do |index|
-          response2 = conn.get("movie/#{movie_id}/reviews?api_key=#{ENV['TMDB_API_KEY']}&page=#{index + 2}")
-          json2 = JSON.parse(response2.body, symbolize_names: true)
-          combined_results = combined_results + json2[:results]
+      page_1 = get_data("movie/#{movie_id}/reviews?")
+      if page_1[:total_pages] > 1
+        (page_1[:total_pages] - 1).times do |index|
+          new_page = get_data("movie/#{movie_id}/reviews?", index + 2)
+           page_1[:results] += new_page[:results]
         end
-        combined_results
-      else
-        json[:results]
       end
+      page_1[:results]
     end
 
     private
+
+    def get_data(url, page = nil)
+      response = conn.get("#{url}api_key=#{ENV['TMDB_API_KEY']}#{"&page=" + "#{page}" if page}")
+      JSON.parse(response.body, symbolize_names: true)
+    end
 
     def conn
       @conn ||= Faraday.new(url: 'https://api.themoviedb.org/3')

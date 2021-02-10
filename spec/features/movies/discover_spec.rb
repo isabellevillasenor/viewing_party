@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'movies discover page' do
   it 'has a Find Top Rated Movies button that redirects to the movies index page' do
-    movies = double("movie", title: "movie title", vote_average: 10)
+    movies = double("movie", title: "movie title", vote_average: 10, api_ref: 1)
     allow(MoviesFacade).to receive(:top_movies).and_return([movies])
     visit discover_path
 

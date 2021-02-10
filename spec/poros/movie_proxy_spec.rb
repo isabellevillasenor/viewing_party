@@ -27,6 +27,6 @@ describe MovieProxy do
   describe 'attributes' do
     it { expect(@movie_proxy.title).to eq("Gabriel's Inferno Part III") }
     it { expect(@movie_proxy.vote_average).to eq(9) }
-    it { expect(@movie_proxy.id).to eq(761053) }
+    it { expect(@movie_proxy.api_ref).to eq(761053) }
   end
 end

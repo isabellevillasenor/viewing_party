@@ -6,4 +6,6 @@ class Party < ApplicationRecord
   belongs_to :movie
   has_many :invitations, dependent: :destroy
   has_many :party_people, through: :invitations
+
+  delegate :title, to: :movie, prefix: true
 end

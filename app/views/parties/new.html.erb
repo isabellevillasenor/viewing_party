@@ -7,11 +7,11 @@
   <%= f.label :party_duration, 'Duration of Party' %>
   <%= f.number_field :party_duration, value: params[:runtime] %><br>
 
-  <%= f.label :party_date, 'Date' %>
-  <%= f.date_field :party_date, value: Date.today, min: Date.today, max: Date.today.next_year(1) %><br>
+  <%= f.label :date, 'Date' %>
+  <%= f.date_field :date, value: Date.today, min: Date.today, max: Date.today.next_year(1) %><br>
 
-  <%= f.label :party_time, 'Start Time' %>
-  <%= f.time_field :party_time %><br>
+  <%= f.label :time, 'Start Time' %>
+  <%= f.time_field :time %><br>
 
 <% if current_user.approved_friends.empty? %>
   <h4>Go Add Some Friends To Your Dashboard!</h4>

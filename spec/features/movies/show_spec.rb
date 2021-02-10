@@ -12,7 +12,8 @@ describe 'Movies Show Page' do
     allow(movie).to receive(:genres).and_return(["Action", "Adventure", "Science Fiction"])
     allow(MoviesFacade).to receive(:cast_details).and_return(cast)
     allow(MoviesFacade).to receive(:review_details).and_return(reviews)
-
+    user = create(:user)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     visit movie_path(api_ref: movie.api_ref)
   end
 

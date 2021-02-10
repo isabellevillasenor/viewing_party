@@ -19,6 +19,7 @@ RSpec.describe MovieDbService do
         expect(movies.size).to eq(40)
       end
     end
+
   end
 
   describe '.search_movies' do
@@ -39,6 +40,8 @@ RSpec.describe MovieDbService do
         expect(movies.size).to be <= 40
       end
     end
+
+    # it 'returns '
   end
 
   describe '.movie_details' do
@@ -65,7 +68,7 @@ RSpec.describe MovieDbService do
 
   describe '.cast_details' do
     it 'returns cast members' do
-      VCR.use_cassette('movie_details') do
+      VCR.use_cassette('cast_details') do
         results = MovieDbService.cast_details(324857)
 
         expect(results).to be_a(Hash)
@@ -83,7 +86,7 @@ RSpec.describe MovieDbService do
 
   describe '.review_details' do
     it 'returns review details' do
-      VCR.use_cassette('movie_details') do
+      VCR.use_cassette('review_details') do
         reviews = MovieDbService.review_details(324857)
 
         expect(reviews).to be_a(Array)

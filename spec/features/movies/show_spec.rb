@@ -7,14 +7,17 @@ describe 'Movies Show Page' do
   let(:reviews) { [Review.new({author: "GeneSiskel", content: "Amazing!"}),
                   Review.new({author: "RogerEbert", content: "Explosive!"})] }
 
-  it 'displays the movie details' do
+  before(:each) do
     allow(MoviesFacade).to receive(:movie_details).and_return(movie)
     allow(movie).to receive(:genres).and_return(["Action", "Adventure", "Science Fiction"])
     allow(MoviesFacade).to receive(:cast_details).and_return(cast)
     allow(MoviesFacade).to receive(:review_details).and_return(reviews)
 
     visit movie_path(api_ref: movie.api_ref)
+  end
 
+
+  it 'displays the movie details' do
     expect(page).to have_content(movie.title)
     expect(page).to have_content("Vote Average: #{movie.vote_average}")
     expect(page).to have_content("Runtime: #{movie.runtime}")
@@ -22,26 +25,12 @@ describe 'Movies Show Page' do
   end
 
   it 'has a section with summary' do
-    allow(MoviesFacade).to receive(:movie_details).and_return(movie)
-    allow(movie).to receive(:genres).and_return(["Action", "Adventure", "Science Fiction"])
-    allow(MoviesFacade).to receive(:cast_details).and_return(cast)
-    allow(MoviesFacade).to receive(:review_details).and_return(reviews)
-
-    visit movie_path(api_ref: movie.api_ref)
-
     within('#summary') do
       expect(page).to have_content(movie.overview)
     end
   end
 
   it 'displays a section with the cast' do
-    allow(MoviesFacade).to receive(:movie_details).and_return(movie)
-    allow(movie).to receive(:genres).and_return(["Action", "Adventure", "Science Fiction"])
-    allow(MoviesFacade).to receive(:cast_details).and_return(cast)
-    allow(MoviesFacade).to receive(:review_details).and_return(reviews)
-
-    visit movie_path(api_ref: movie.api_ref)
-
     within('#cast') do
       cast.each do |actor|
         expect(page).to have_content(actor.name)
@@ -51,13 +40,6 @@ describe 'Movies Show Page' do
   end
 
   it 'has a section for reviews' do
-    allow(MoviesFacade).to receive(:movie_details).and_return(movie)
-    allow(movie).to receive(:genres).and_return(["Action", "Adventure", "Science Fiction"])
-    allow(MoviesFacade).to receive(:cast_details).and_return(cast)
-    allow(MoviesFacade).to receive(:review_details).and_return(reviews)
-
-    visit movie_path(api_ref: movie.api_ref)
-
     within('#reviews') do
       expect(page).to have_content("#{reviews.size} Reviews")
       reviews.each do |review|
@@ -68,13 +50,6 @@ describe 'Movies Show Page' do
   end
 
   it 'has a button to create a viewing party' do
-    allow(MoviesFacade).to receive(:movie_details).and_return(movie)
-    allow(movie).to receive(:genres).and_return(["Action", "Adventure", "Science Fiction"])
-    allow(MoviesFacade).to receive(:cast_details).and_return(cast)
-    allow(MoviesFacade).to receive(:review_details).and_return(reviews)
-
-    visit movie_path(api_ref: movie.api_ref)
-
     expect(page).to have_button('Create Viewing Party!')
 
     click_button

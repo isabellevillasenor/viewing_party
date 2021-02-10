@@ -3,7 +3,8 @@ class MovieProxy
               :vote_average,
               :api_ref,
               :runtime,
-              :overview
+              :overview,
+              :poster_path
 
   def initialize(data)
     @title = data[:title]
@@ -12,6 +13,7 @@ class MovieProxy
     @runtime = data[:runtime]
     @genres = data[:genres]
     @overview = data[:overview]
+    @poster_path = data[:poster_path]
   end
 
   def genres

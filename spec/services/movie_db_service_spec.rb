@@ -41,7 +41,21 @@ RSpec.describe MovieDbService do
       end
     end
 
-    # it 'returns '
+    it 'search with spaces', :vcr do
+      movies = MovieDbService.search_movies("independence day")
+
+      expect(movies).to be_an(Array)
+
+      first_movie = movies[0]
+      expect(first_movie).to be_a(Hash)
+      expect(first_movie).to have_key(:title)
+      expect(first_movie[:title]).to be_a(String)
+      expect(first_movie).to have_key(:vote_average)
+      expect(first_movie[:vote_average]).to be_a(Numeric)
+      expect(first_movie).to have_key(:id)
+      expect(first_movie[:id]).to be_a(Numeric)
+      expect(movies.size).to be <= 40
+    end
   end
 
   describe '.movie_details' do
@@ -82,6 +96,20 @@ RSpec.describe MovieDbService do
         expect(first_actor[:character]).to be_a(String)
       end
     end
+
+    it 'fewer than 10 cast members', :vcr do
+      results = MovieDbService.cast_details(503919)
+
+      expect(results).to be_a(Hash)
+      expect(results).to have_key(:cast)
+      expect(results[:cast]).to be_an(Array)
+      first_actor = results[:cast][0]
+      expect(first_actor).to be_a(Hash)
+      expect(first_actor).to have_key(:name)
+      expect(first_actor[:name]).to be_a(String)
+      expect(first_actor).to have_key(:character)
+      expect(first_actor[:character]).to be_a(String)
+    end
   end
 
   describe '.review_details' do
@@ -97,6 +125,18 @@ RSpec.describe MovieDbService do
         expect(first_review).to have_key(:content)
         expect(first_review[:content]).to be_a(String)
       end
+    end
+    
+    it 'no reviews', :vcr do
+      reviews = MovieDbService.review_details(503919)
+
+      expect(reviews).to be_a(Array)
+      first_review = reviews[0]
+      expect(first_review).to be_a(Hash)
+      expect(first_review).to have_key(:author)
+      expect(first_review[:author]).to be_a(String)
+      expect(first_review).to have_key(:content)
+      expect(first_review[:content]).to be_a(String)
     end
   end
 end

@@ -1,17 +1,19 @@
 class MovieProxy
   attr_reader :title,
               :vote_average,
-              :id,
+              :api_ref,
               :runtime,
-              :overview
+              :overview,
+              :poster_path
 
   def initialize(data)
     @title = data[:title]
     @vote_average = data[:vote_average]
-    @id = data[:id]
-    @runtime = data[:runtime] if data[:runtime]
-    @genres = data[:genres] if data[:genres]
-    @overview = data[:overview] if data[:overview]
+    @api_ref = data[:id]
+    @runtime = data[:runtime]
+    @genres = data[:genres]
+    @overview = data[:overview]
+    @poster_path = data[:poster_path]
   end
 
   def genres

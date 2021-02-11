@@ -1,7 +1,7 @@
 <h1><%= @movie.title %></h1>
 
 <%= button_to 'Create Viewing Party!', new_party_path, method: :get %>
-
+<%= image_tag "https://image.tmdb.org/t/p/w500/#{@movie.poster_path}" %>
 <p><strong>Vote Average: </strong><%= @movie.vote_average %>
    <strong>Runtime: </strong><%= @movie.runtime %>
    <strong>Genre(s): </strong><%= @movie.genres.join(', ') %></p>

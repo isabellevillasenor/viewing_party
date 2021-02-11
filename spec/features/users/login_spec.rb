@@ -3,6 +3,12 @@ require 'rails_helper'
 RSpec.describe 'logging in' do
   let(:user) {create(:user)}
 
+  it 'login page has a link to register' do
+    visit login_path
+
+    expect(page).to have_link("Register", href: registration_path)
+  end
+
   it 'can log in with valid credentials' do
     visit login_path
 

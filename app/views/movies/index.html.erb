@@ -3,9 +3,9 @@
 </div>
 
 <% if @movies %>
-  <ul>
+  <ul style="list-style-type:none;">
     <% @movies.each do |movie| %>
-      <li><%= link_to movie.title, "/movies/#{movie.id}" %> Vote Average: <%= movie.vote_average %></li>
+      <li><%= link_to movie.title, "/movies/#{movie.id}" %> Vote Average: <%= movie.vote_average %></li><br>
     <% end %>
   </ul>
 <% end %>

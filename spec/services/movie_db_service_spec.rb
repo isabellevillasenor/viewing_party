@@ -41,6 +41,22 @@ RSpec.describe MovieDbService do
       end
     end
 
+    it 'search with one page', :vcr do
+      movies = MovieDbService.search_movies("yellow submarine")
+
+      expect(movies).to be_an(Array)
+
+      first_movie = movies[0]
+      expect(first_movie).to be_a(Hash)
+      expect(first_movie).to have_key(:title)
+      expect(first_movie[:title]).to be_a(String)
+      expect(first_movie).to have_key(:vote_average)
+      expect(first_movie[:vote_average]).to be_a(Numeric)
+      expect(first_movie).to have_key(:id)
+      expect(first_movie[:id]).to be_a(Numeric)
+      expect(movies.size).to be <= 20
+    end
+
     it 'search with spaces', :vcr do
       movies = MovieDbService.search_movies("independence day")
 

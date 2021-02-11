@@ -1,45 +1,50 @@
 # Viewing Party
 
-Viewing party is an application in which users can explore movie options and create a viewing party event for the user and friend's. 
-- this was a 10 day project
-- if you want to see the live app, check out [link to heroku]
-- if you're a dev wanting to submit changes/see the code on your local machine follow the local setup section below [link to section]
-
-## video walk through
-  - actions that you can do as a visitor
-  - actions that you can do as a user
-
-## contributors 
-  - links to our git hubs & linkedin
-
-## our schema
+Viewing party is an application in which users can explore movie options and create a viewing party event for the user and friends. This was a 10 day project assigned by the Turing School of Software & Design Backend Engineering Program. If you'd like to see the live web app, check out [our site on Heroku](https://viewing-party-m3.herokuapp.com/)
 
 
+## Contributors 
 
-## Local Setup
+Gus Cunningham [GitHub](https://github.com/cunninghamge) | [LinkedIn](https://www.linkedin.com/in/grayson-cunningham/)
 
-1. Apply for an API key at (link to tmdb)
-2. Fork and Clone the repo 
-3. Install gem packages: `bundle install`
-4. Setup the database: `rails db:{create, migrate, seed}`
-5. Add API to config/application.yml
-6. rails s
-7. run tests/how to run tests, simplecov and rubocop
-  - Set up VCR/that we auto-deleted
+Saundra Catalina [GitHub](https://github.com/saundracatalina) | [LinkedIn](https://www.linkedin.com/in/saundra-catalina/)
+
+Isabelle Villasenor [GitHub](https://github.com/isabellevillasenor) | [LinkedIn](https://www.linkedin.com/in/isabelle-villasenor/)
 
 
-## Versions/Gems
-- include gems
-  - make them links to their GH docs
+## Our Schema
+
+![Database Schema Image](https://i.ibb.co/P9RMt5t/viewing-party.png)
+
+
+# Local Setup
+- If you're a dev wanting to see the code in your local enviroment follow the steps below!
+
+1. Apply for an API key at [TheMovieDB](https://www.themoviedb.org/)
+2. Clone the repo   
+  `git clone https://github.com/your_username_/viewing_party.git`
+3. Install gem packages  
+  `bundle install`
+4. Install Figaro  
+  `bundle install figaro`
+5. Enter API Key  
+  `config/application.yml`
+6. Setup the database   
+  `rails db:{create, migrate}`
+7. Run tests and open coverage report   
+  `bundle exec rspec`  
+  `open coverage/index.html` 
+8. Run Rubocop  
+  `rubocop`  
+
+
+## Versions
 
 - Ruby 2.5.3
-
 - Rails 5.2.4.3
 
-- git projects
-- agile workflow
-
-Example wireframes to follow are found [here](https://backend.turing.io/module3/projects/viewing_party/wireframes)
-
-## Ideas for Additional Features (how to phrase this?)
-- link to project requirements 
+## Ideas for Additional Features
+- Impliment styling with JavaScript
+- Add chat functionality to viewing parties
+- Create a navigation bar on all pages for users to log out or visit their dashboard
+- Consume additonal API endpoints

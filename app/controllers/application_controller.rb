@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  helper_method :current_user
+  helper_method :current_user, :movie
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -12,5 +12,9 @@ class ApplicationController < ActionController::Base
 
     flash[:notice] = 'Please Log in or Create an Account'
     redirect_to root_path
+  end
+
+  def movie
+    @movie ||= MovieProxy.new(session[:movie].symbolize_keys)
   end
 end

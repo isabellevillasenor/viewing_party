@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 describe 'New Viewing Party Page' do
-  before :each do 
+  before :each do
     @user1 = create :user
     @user2 = create :user
     @user3 = create :user
     @user4 = create :user
-    
+
     create(:friendship, user: @user1, friend: @user2, status: 1)
     create(:friendship, user: @user1, friend: @user3, status: 1)
     create(:friendship, user: @user1, friend: @user4, status: 1)
@@ -19,7 +19,7 @@ describe 'New Viewing Party Page' do
       data = File.read('spec/fixtures/movie_details.json')
       movie_data = JSON.parse(data, symbolize_names: true)
       @movie = MovieProxy.new(movie_data)
-      visit "/movies/#{@movie.id}"
+      visit movie_path(api_ref: @movie.api_ref)
 
       click_button 'Create Viewing Party!'
       

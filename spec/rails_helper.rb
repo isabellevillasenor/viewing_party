@@ -1,3 +1,7 @@
+require 'simplecov'
+SimpleCov.start do
+  add_filter 'spec/'
+end
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'webmock/rspec'
 require 'spec_helper'
@@ -76,4 +80,5 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.filter_sensitive_data('<TMDB_API_KEY>') { ENV['TMDB_API_KEY'] }
   config.default_cassette_options = { re_record_interval: 7.days }
+  config.configure_rspec_metadata!
 end

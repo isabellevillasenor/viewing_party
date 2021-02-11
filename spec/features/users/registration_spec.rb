@@ -34,6 +34,16 @@ RSpec.describe 'user registration' do
       expect(page).to have_content("Password can't be blank")
     end
 
+    it 'cannot register with invalid email' do
+      fill_in('user[email]', with: 'NotAnEmail')
+      fill_in('user[password]', with: password)
+      fill_in('user[password_confirmation]', with: password)
+      fill_in('user[name]', with: name)
+      click_button('Register')
+
+      expect(page).to have_content("Email is invalid")
+    end
+
     it 'validates that the password entries match' do
       fill_in('user[email]', with: email)
       fill_in('user[password]', with: password)

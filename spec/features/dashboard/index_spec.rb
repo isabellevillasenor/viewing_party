@@ -205,5 +205,38 @@ describe 'Dashboard Index' do
         within('.friends') {expect(page).not_to have_content(email)}
       end
     end
+
+    describe 'party section' do
+      before(:each) do
+        @user = create(:user)
+        @friend = create(:user)
+        create(:friendship, user: @user, friend: @friend)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+        @movie = Movie.create(api_ref: 12345, title: 'Movie 1')
+        @party = Party.create(party_time: DateTime.now, party_duration: 180, host_id: @user.id, movie_id: @movie.id)
+        Invitation.create(party_person_id: @friend.id, party_id: @party.id)
+      end
+
+      it 'displays parties with the status of host/invite' do
+        visit dashboard_path
+        
+        within(".parties") do
+          expect(page).to have_content(@movie.title)
+          expect(page).to have_content(@party.party_time.strftime('%B %-d %Y'))
+          expect(page).to have_content(@party.party_time.strftime('%l:%M %p'))
+          expect(page).to have_content('Hosting')
+        end
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@friend)
+        visit dashboard_path
+
+        within(".parties") do
+          expect(page).to have_content(@movie.title)
+          expect(page).to have_content(@party.party_time.strftime('%B %-d %Y'))
+          expect(page).to have_content(@party.party_time.strftime('%l:%M %p'))
+          expect(page).to have_content('Invited')
+        end
+      end
+    end
   end
 end

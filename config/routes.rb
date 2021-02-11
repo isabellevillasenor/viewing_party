@@ -5,13 +5,13 @@ Rails.application.routes.draw do
   get '/registration', to: 'users#new'
 
   resources :users, only: [:create]
-  resources :parties, only: [:new]
+  resources :parties, only: [:new, :create]
 
   get '/dashboard', to: 'dashboard#index'
 
   get '/discover', to: 'movies#discover'
   get '/movies', to: 'movies#index'
-  get '/movies/:id', to: 'movies#show'
+  get '/movies/:api_ref', to: 'movies#show', as: :movie
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

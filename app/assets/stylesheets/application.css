@@ -34,6 +34,14 @@ footer {
   flex-direction: row;
 }
 
+a:link{
+  color: white;
+}
+
+a:visited{
+  color:aquamarine;
+}
+
 h1 {
   color: #FBFFFD;
   text-align: center;

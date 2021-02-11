@@ -1,5 +1,8 @@
 class User < ApplicationRecord
-  validates :email, uniqueness: true, presence: true
+  validates :email,
+            uniqueness: true,
+            presence: true,
+            format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, presence: true
 
   has_secure_password
@@ -12,8 +15,9 @@ class User < ApplicationRecord
             foreign_key: 'friend_id',
             inverse_of: :friend
   has_many :inverse_friends, through: :inverse_friendships, source: :user
-  has_many :parties, dependent: :destroy, inverse_of: :host
-  has_many :invitations, dependent: :destroy, inverse_of: :party_person
+  has_many :parties, dependent: :destroy, inverse_of: :host, foreign_key: 'host_id'
+  has_many :invitations, dependent: :destroy, inverse_of: :party_person, foreign_key: 'party_person_id'
+  has_many :invited_parties, through: :invitations, class_name: 'Party', source: :party
 
   before_save { email.try(:downcase!) }
 
@@ -38,5 +42,11 @@ class User < ApplicationRecord
 
   def received_requests
     inverse_friends.pending
+  end
+
+  def upcoming_parties
+    hosted = parties.where('party_time > now()')
+    invited = invited_parties.where('party_time > now()')
+    hosted + invited
   end
 end

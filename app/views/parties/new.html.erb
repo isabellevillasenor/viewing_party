@@ -1,0 +1,25 @@
+<%= form_with model: @party, local: true do |f| %>
+  <%= f.hidden_field :api_ref, value: params[:movie_id] %>
+
+  <%= f.label :title, 'Movie Title' %>
+  <%= f.text_field :title, value: params[:title], :readonly => true %><br>
+
+  <%= f.label :party_duration, 'Duration of Party' %>
+  <%= f.number_field :party_duration, value: params[:runtime] %><br>
+
+  <%= f.label :date, 'Date' %>
+  <%= f.date_field :date, value: Date.today, min: Date.today, max: Date.today.next_year(1) %><br>
+
+  <%= f.label :time, 'Start Time' %>
+  <%= f.time_field :time %><br>
+
+<% if current_user.approved_friends.empty? %>
+  <h4>Go Add Some Friends To Your Dashboard!</h4>
+  <%= link_to 'Dashboard', dashboard_path %><br/>
+<% else %>
+  <h4>Select Friends</h4>
+  <%= f.collection_check_boxes :invitations, current_user.all_friends, :id, :email %><br>
+<% end%>
+
+  <%= f.submit 'Create Party' %>
+<% end %>

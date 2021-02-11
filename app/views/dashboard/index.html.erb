@@ -31,6 +31,16 @@
 <section class="parties">
   <h3>Movie Parties</h3>
   <hr>
+  <% current_user.upcoming_parties.each do |party| %>
+    <%= party.movie_title %><br>
+    <%= party.party_time.strftime('%B %-d %Y') %><br>
+    <%= party.party_time.strftime('%l:%M %p') %><br>
+    <% if party.host_id == current_user.id %>
+      <p>Hosting</p>
+    <% else %>
+      <p>Invited</p>
+    <% end %>
+  <% end %>
 </section>
 
 <%= button_to 'Log Out', logout_path %>

@@ -51,10 +51,10 @@ describe 'Movies Show Page' do
   end
 
   it 'has a button to create a viewing party' do
-    expect(page).to have_button('Create Viewing Party!')
+     expect(page).to have_button('Create Viewing Party!')
 
-    click_button
+     click_button
 
-    expect(current_path).to eq(new_party_path)
+     expect(current_path).to eq(new_party_path)
   end
 end

@@ -69,5 +69,24 @@ describe User do
         expect(@user.inverse_friends.approved).to eq([@approved_inverse_friend])
       end
     end
+
+    describe 'upcoming parties' do
+      it '#upcoming_parties' do
+        @user = create(:user)
+        @friend = create(:user)
+        create(:friendship, user: @user, friend: @friend)
+
+        @movie = Movie.create(api_ref: 12345, title: 'Movie 1')
+        @party1 = Party.create(party_time: DateTime.now.tomorrow, party_duration: 180, host_id: @user.id, movie_id: @movie.id)
+        @party2 = Party.create(party_time: DateTime.now.tomorrow, party_duration: 240, host_id: @friend.id, movie_id: @movie.id)
+        @party3 = Party.create(party_time: DateTime.now.yesterday, party_duration: 240, host_id: @friend.id, movie_id: @movie.id)
+
+        Invitation.create(party_person_id: @friend.id, party_id: @party1.id)
+        Invitation.create(party_person_id: @user.id, party_id: @party2.id)
+        Invitation.create(party_person_id: @user.id, party_id: @party3.id)
+
+        expect(@user.upcoming_parties).to eq([@party1, @party2])
+      end
+    end
   end
 end

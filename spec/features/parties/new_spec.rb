@@ -10,60 +10,47 @@ describe 'New Viewing Party Page' do
     create(:friendship, user: @user1, friend: @user2, status: 1)
     create(:friendship, user: @user1, friend: @user3, status: 1)
     create(:friendship, user: @user1, friend: @user4, status: 1)
+    @movie = build(:movie_proxy)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user1)
+    allow_any_instance_of(ApplicationController).to receive(:movie).and_return(@movie)
   end
 
   it 'displays the party form, creates party and redirects to dashboard' do
-    VCR.use_cassette('movie_details') do
-      data = File.read('spec/fixtures/movie_details.json')
-      movie_data = JSON.parse(data, symbolize_names: true)
-      @movie = MovieProxy.new(movie_data)
-      visit movie_path(api_ref: @movie.api_ref)
+    visit new_party_path
 
-      click_button 'Create Viewing Party!'
-      
-      expect(find_field('party[title]').value).to eq(@movie.title)
-      expect(find_field('party[party_duration]').value).to eq(@movie.runtime.to_s)
+    expect(page).to have_text(@movie.title)
 
-      fill_in 'party[date]', with: Date.tomorrow.strftime('%Y-%m-%d')
-      expect(find_field('party[date]').value).to eq(Date.tomorrow.strftime('%Y-%m-%d'))
+    expect(page).to have_field('party[party_duration]', with: @movie.runtime)
+    expect(page).to have_field('party[date]', with: Date.today)
+    expect(page).to have_field('party[time]')
 
-      fill_in 'party[time]', with: '08:00 PM'
-      expect(find_field('party[time]').value).to eq('08:00 PM')
 
-      find(:css, "#party_invitations_#{@user2.id}[value='#{@user2.id}']").set(true)
-      find(:css, "#party_invitations_#{@user3.id}[value='#{@user3.id}']").set(true)
+    fill_in 'party[date]', with: Date.tomorrow.strftime('%Y-%m-%d')
+    fill_in 'party[time]', with: '08:00 PM'
 
-      click_button 'Create Party'
+    within("#friend-#{@user2.id}") {check('party[friends][]')}
+    within("#friend-#{@user3.id}") {check('party[friends][]')}
 
-      expect(current_path).to eq(dashboard_path)
-      expect(page).to have_content('Invitation(s) Sent!')
+    click_button 'Create Party'
 
-      within(".parties") do
-        expect(page).to have_content(@movie.title)
-        expect(page).to have_content('Hosting')
-      end
+    expect(current_path).to eq(dashboard_path)
+    expect(page).to have_content('2 Invitations Sent!')
+
+    within(".parties") do
+      expect(page).to have_content(@movie.title)
+      expect(page).to have_content('Hosting')
     end
   end
 
   describe 'sad path' do
     it 'displays a flash message and renders the new view' do
-      VCR.use_cassette('movie_details') do
-        data = File.read('spec/fixtures/movie_details.json')
-        movie_data = JSON.parse(data, symbolize_names: true)
-        @movie = MovieProxy.new(movie_data)
-        visit movie_path(api_ref: @movie.api_ref)
+      visit new_party_path
 
-        click_button 'Create Viewing Party!'
+      fill_in 'party[party_duration]', with: 0
+      click_button 'Create Party'
 
-        fill_in 'party[party_duration]', with: 0
-        click_button 'Create Party'
-        
-        expect(page).to have_content("Party duration must be greater than 0")
-      end
-    end      
+      expect(page).to have_content("Party duration must be greater than 0")
+    end
   end
 end
-
-

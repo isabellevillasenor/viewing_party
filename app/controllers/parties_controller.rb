@@ -8,6 +8,7 @@ class PartiesController < ApplicationController
     @party = Party.new(party_params.merge(movie_id: @movie.id, host_id: current_user.id))
     if @party.save
       send_invites(params[:party][:invitations] - [''])
+      flash[:notice] = 'Invitations Sent!'
       redirect_to dashboard_path
     else
       flash[:errors] = @party.errors.full_messages

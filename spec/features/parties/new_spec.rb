@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 describe 'New Viewing Party Page' do
-  before :each do 
+  before :each do
     @user1 = create :user
     @user2 = create :user
     @user3 = create :user
     @user4 = create :user
-    
+
     create(:friendship, user: @user1, friend: @user2, status: 1)
     create(:friendship, user: @user1, friend: @user3, status: 1)
     create(:friendship, user: @user1, friend: @user4, status: 1)
@@ -22,7 +22,7 @@ describe 'New Viewing Party Page' do
       visit "/movies/#{@movie.id}"
 
       click_button 'Create Viewing Party!'
-      
+
       expect(find_field('party[title]').value).to eq(@movie.title)
       expect(find_field('party[party_duration]').value).to eq(@movie.runtime.to_s)
 
@@ -38,6 +38,7 @@ describe 'New Viewing Party Page' do
       click_button 'Create Party'
 
       expect(current_path).to eq(dashboard_path)
+      expect(page).to have_content('Invitations Sent!')
 
       within(".parties") do
         expect(page).to have_content(@movie.title)

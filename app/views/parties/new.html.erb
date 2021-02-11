@@ -18,6 +18,7 @@
   <%= link_to 'Dashboard', dashboard_path %><br/>
 <% else %>
   <h4>Select Friends</h4>
+  <p>Friends will receive an email invitation from Viewing Party</p>
   <%= f.collection_check_boxes :invitations, current_user.all_friends, :id, :email %><br>
 <% end%>
 

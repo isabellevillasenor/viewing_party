@@ -62,7 +62,6 @@ describe 'Movies Show Page' do
         @reviews.each do |review|
           within("#review-#{review.id}") do
             expect(page).to have_content(review.author)
-            # expect(page).to have_content(review.content.gsub("\n", " "))
           end
         end
       end

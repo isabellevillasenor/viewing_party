@@ -38,6 +38,7 @@ describe 'New Viewing Party Page' do
       click_button 'Create Party'
 
       expect(current_path).to eq(dashboard_path)
+      expect(page).to have_content('Invitation(s) Sent!')
 
       within(".parties") do
         expect(page).to have_content(@movie.title)

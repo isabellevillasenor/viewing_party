@@ -46,4 +46,22 @@ describe 'New Viewing Party Page' do
       end
     end
   end
+
+  describe 'sad path' do
+      it 'displays a flash message and renders the new view' do
+        VCR.use_cassette('movie_details') do
+          data = File.read('spec/fixtures/movie_details.json')
+          movie_data = JSON.parse(data, symbolize_names: true)
+          @movie = MovieProxy.new(movie_data)
+          visit "/movies/#{@movie.id}"
+
+          click_button 'Create Viewing Party!'
+
+          fill_in 'party[party_duration]', with: 0
+          click_button 'Create Party'
+          
+          expect(page).to have_content("Party duration must be greater than 0")
+        end
+      end
+  end
 end

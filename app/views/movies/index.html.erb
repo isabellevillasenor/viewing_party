@@ -5,7 +5,7 @@
 <% if @movies %>
   <ul style="list-style-type:none;">
     <% @movies.each do |movie| %>
-      <li><%= link_to movie.title, "/movies/#{movie.id}" %> Vote Average: <%= movie.vote_average %></li><br>
+      <li><%= link_to movie.title, movie_path(api_ref: movie.api_ref) %> Vote Average: <%= movie.vote_average%></li>
     <% end %>
   </ul>
 <% end %>

@@ -1,7 +1,7 @@
 class InvitationMailer < ApplicationMailer
   def invite(user, friend)
     @user = user
-    @friend= friend
+    @friend = friend
 
     mail(
       reply_to: @user.email,

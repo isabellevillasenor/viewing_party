@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   get '/discover', to: 'movies#discover'
   get '/movies', to: 'movies#index'
-  get '/movies/:id', to: 'movies#show'
+  get '/movies/:api_ref', to: 'movies#show', as: :movie
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

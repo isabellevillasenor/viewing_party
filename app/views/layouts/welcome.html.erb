@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Viewing Party</title>
+    <%= csrf_meta_tags %>
+
+    <%= javascript_include_tag 'application' %>
+    <style>
+      body {
+        background-image: url('/assets/theater.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: center;
+        color: #b00000;
+      }
+
+      h1 {
+        font-family: "Monospace", Courier, serif;
+        font-size: 50px;
+        text-shadow: 1px 1px #800000;
+      }
+
+      footer {
+        position: fixed;
+        bottom: 0;
+        display: flex;
+        flex-direction: row;
+        background-color: rgb(49, 54, 70, 0.7);
+        border-radius: 25px;
+        color: #FBFFFD;
+        text-align: left;
+        padding-left: 12px;
+        padding-right: 12px;
+        width: 100%;
+      }
+
+      a:link{
+        color: white;
+      }
+
+      a:visited{
+        color:white;
+      }
+
+      .nav-link {
+        background-color: #313646;
+        border: 1px solid #7d3636;
+        font-size: 20px;
+        color: white;
+        padding: 10px 16px;
+        text-decoration: none;
+        cursor: pointer;
+        border-radius: 24px;
+        width: 10%;
+        display: flex;
+        margin: auto;
+        justify-content: center
+      }
+
+      .nav-link:hover {
+        background-color: #7d3636;
+      }
+
+      #photo-credit {
+        position: fixed;
+        text-align: right;
+        bottom: 0;
+        right: 0;
+      }
+      #description {
+        font-family: "Monospace", Courier;
+        font-size: 22px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <% flash.each do |notice, messages| %>
+      <% if notice == 'errors' %>
+        <ul>
+          <% messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p><%= messages %></p>
+      <% end %>
+    <% end %>
+
+    <%= yield %>
+
+    <footer>
+      <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" alt="The MovieDB Logo" width="75px" style="margin:10px" >
+      <div>
+        <p>
+          Thank you to <a href="https://www.themoviedb.org/about/logos-attribution">The MovieDB</a> for providing the movie data that is used in this application.
+        </p>
+        <p>
+          Further citation information regarding the movie data used in this project can be found <a href="http://files.grouplens.org/datasets/movielens/ml-latest-small-README.html">here.</a>
+        </p>
+      </div>
+
+      <p id='photo-credit'>Photo by <a href="https://unsplash.com/@felixmooneeram?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Felix Mooneeram</a> on <a href="https://unsplash.com/s/photos/movie?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></p>
+    </footer>
+  </body>
+</html>

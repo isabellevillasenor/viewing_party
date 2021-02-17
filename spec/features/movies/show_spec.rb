@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe 'Movies Show Page' do
+  include ApplicationHelper
+
   let(:movie) { build(:movie_proxy) }
   let(:cast) { [Actor.new({name: "Will Smith", character: "Capt. Steven Hiller"}),
                 Actor.new({name: "Jeff Goldblum", character: "David Levinson"})] }
@@ -21,8 +23,8 @@ describe 'Movies Show Page' do
   it 'displays the movie details' do
     expect(page).to have_content(movie.title)
     expect(page).to have_content("Vote Average: #{movie.vote_average}")
-    expect(page).to have_content("Runtime: #{movie.runtime}")
-    expect(page).to have_content("Genre(s): #{movie.genres.join(', ')}")
+    expect(page).to have_content("Runtime: #{humanize_runtime(movie.runtime)}")
+    expect(page).to have_content(movie.genres.join(', '))
   end
 
   it 'has a section with summary' do
@@ -53,7 +55,7 @@ describe 'Movies Show Page' do
   it 'has a button to create a viewing party' do
      expect(page).to have_button('Create Viewing Party!')
 
-     click_button
+     click_button('Create Viewing Party!')
 
      expect(current_path).to eq(new_party_path)
   end

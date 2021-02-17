@@ -20,7 +20,7 @@ describe 'movies index page' do
 
       click_button 'Find Top Rated Movies'
 
-      expect(page).to have_css('li', count: 40)
+      expect(page).to have_css('tr', count: 40)
       movies.each do |movie|
         expect(page).to have_link(movie.title, href: movie_path(api_ref: movie.api_ref))
         expect(page).to have_content("Vote Average: #{movie.vote_average}")
@@ -48,7 +48,7 @@ describe 'movies index page' do
       fill_in :title, with: "Phoenix"
       click_button 'Find Movies'
 
-      expect(page).to have_css('li', count: 40)
+      expect(page).to have_css('tr', count: 40)
       movies.each do |movie|
         expect(page).to have_link(movie.title, href: movie_path(api_ref: movie.api_ref))
         expect(page).to have_content("Vote Average: #{movie.vote_average}")

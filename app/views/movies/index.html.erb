@@ -3,9 +3,13 @@
 </div>
 
 <% if @movies %>
-  <ul style="list-style-type:none;">
+  <table id='search-results'>
     <% @movies.each do |movie| %>
-      <li><%= link_to movie.title, movie_path(api_ref: movie.api_ref) %> Vote Average: <%= movie.vote_average%></li>
+      <tr>
+        <td><%= link_to movie.title, movie_path(api_ref: movie.api_ref)%></td>
+        <td class='spacer'></td>
+        <td>Vote Average: <%= movie.vote_average%></td>
+      </tr>
     <% end %>
-  </ul>
+  </table>
 <% end %>

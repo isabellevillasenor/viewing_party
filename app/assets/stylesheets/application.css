@@ -39,7 +39,7 @@ a:link{
 }
 
 a:visited{
-  color:aquamarine;
+  color:white;
 }
 
 h1 {
@@ -64,6 +64,10 @@ input[type=submit]:hover {
 
 hr {
   border: 2px solid #9886CD;
+}
+
+ul {
+  list-style-type: none;
 }
 
 .friends {
@@ -116,6 +120,29 @@ hr {
 .sent, .received {
   border: 0.5px solid #9886CD;
   text-align: left;
+}
+
+.spacer {
+  width: 100px;
+}
+
+#reviews {
+  text-align: left;
+}
+
+#cast-list {
+  column-count: 2;
+}
+
+#movie-details {
+  display: flex;
+  text-align: left;
+}
+
+#search-results {
+  display: flex;
+  justify-content: space-around;
+  text-align:left
 }
 
 #logout {

@@ -9,27 +9,30 @@
   </head>
 
   <body>
-    <% flash.each do |notice, messages| %>
-      <% if notice == 'errors' %>
-        <ul>
-          <% messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      <% else %>
-        <p><%= messages %></p>
+    <main>
+      <% flash.each do |notice, messages| %>
+        <% if notice == 'errors' %>
+          <ul>
+            <% messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p><%= messages %></p>
+        <% end %>
       <% end %>
-    <% end %>
 
-    <div class='top-container'>
-      <% if current_user %>
-        <h1>Welcome, <%= current_user.name %>!<h1>
-      <% else %>
-        <h1>Welcome to Viewing Party!</h1>
-      <% end %>
-    </div>
+      <div class='top-container'>
+        <% if current_user %>
+          <h1>Welcome, <%= current_user.name %>!<h1>
+        <% else %>
+          <h1>Welcome to Viewing Party!</h1>
+        <% end %>
+      </div>
 
-    <%= yield %>
+      <%= yield %>
+
+    </main>
 
     <footer>
       <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" alt="The MovieDB Logo" width="75px" style="margin:10px" >
@@ -43,6 +46,5 @@
       </div>
       <%= button_to 'Log Out', logout_path, id: 'logout' %>
     </footer>
-
   </body>
 </html>

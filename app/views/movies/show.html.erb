@@ -2,31 +2,42 @@
 
 
 <%= button_to 'Create Viewing Party!', new_party_path, method: :get %>
+<hr>
+<div id="movie-details">
+  <div class="info">
+    <p><strong>Vote Average: </strong><%= @movie.vote_average %><br>
+      <strong>Runtime: </strong><%= humanize_runtime(@movie.runtime) %><br>
+      <strong><%= 'Genre'.pluralize(@movie.genres) %>: </strong><%= @movie.genres.join(', ') %></p>
 
-<%= image_tag "https://image.tmdb.org/t/p/w500/#{@movie.poster_path}" %>
+    <hr class="in-section">
 
-<p><strong>Vote Average: </strong><%= @movie.vote_average %>
-   <strong>Runtime: </strong><%= @movie.runtime %>
-   <strong>Genre(s): </strong><%= @movie.genres.join(', ') %></p>
+    <section id="summary">
+      <h4>Summary</h4>
+      <p><%= @movie.overview %></p>
+    </section>
 
-<section id="summary">
-  <h4>Summary</h4>
-  <p><%= @movie.overview %></p>
-</section>
+    <hr class="in-section">
 
-<section id="cast">
-  <h4>Cast</h4>
-  <% @cast.each do |actor| %>
-    <p><%= actor.name %> as <%= actor.character %></p>
-  <% end %>
-</section>
+    <section id="cast">
+      <h4>Cast</h4>
+      <div id="cast-list">
+        <% @cast.each do |actor| %>
+          <li><%= actor.name %> as <%= actor.character %></li>
+        <% end %>
+      </div>
+    </section>
+  </div>
 
+   <%= image_tag "https://image.tmdb.org/t/p/w500/#{@movie.poster_path}", style: 'width:30%' %>
+</div>
+<hr>
 <section id="reviews">
   <h4><%= @reviews.size %> Reviews</h4>
   <% @reviews.each do |review| %>
     <section id="review-<%= review.id %>">
-    <strong>Author: <%= review.author %></strong>
-    <p><%= review.content %></p>
+      <strong>Author: <%= review.author %></strong>
+      <p><%= review.content %></p>
     </section>
+    <hr class="in-section">
   <% end %>
 </section>

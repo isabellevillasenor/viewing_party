@@ -9,14 +9,6 @@
   </head>
 
   <body>
-    <div class='top-container'>
-      <% if current_user %>
-        <h1>Welcome, <%= current_user.name %>!<h1>
-      <% else %>
-        <h1>Welcome to Viewing Party!</h1>
-      <% end %>
-    </div>
-
     <main>
       <% flash.each do |notice, messages| %>
         <% if notice == 'errors' %>
@@ -29,7 +21,17 @@
           <p><%= messages %></p>
         <% end %>
       <% end %>
+
+      <div class='top-container'>
+        <% if current_user %>
+          <h1>Welcome, <%= current_user.name %>!<h1>
+        <% else %>
+          <h1>Welcome to Viewing Party!</h1>
+        <% end %>
+      </div>
+
       <%= yield %>
+
     </main>
 
     <footer>
@@ -42,7 +44,7 @@
           Further citation information regarding the movie data used in this project can be found <a href="http://files.grouplens.org/datasets/movielens/ml-latest-small-README.html">here.</a>
         </p>
       </div>
+      <%= button_to 'Log Out', logout_path, id: 'logout' %>
     </footer>
-
   </body>
 </html>

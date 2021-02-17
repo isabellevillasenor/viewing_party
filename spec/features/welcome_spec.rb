@@ -11,13 +11,13 @@ RSpec.describe 'Welcome' do
   end
 
   it 'displays a description of the application' do
-    expect(page).to have_content('An application to explore movies and create a viewing party event for you and your friends to watch a movie together')
+    expect(page).to have_content('Explore movies and create a viewing party event for you and your friends!')
   end
 
   it 'has a button to log in' do
-    expect(page).to have_button('Log In')
+    expect(page).to have_link('Log In')
 
-    click_button 'Log In'
+    click_link 'Log In'
 
     expect(current_path).to eq(login_path)
   end

@@ -42,7 +42,7 @@ describe 'Dashboard Index' do
     it 'starts with no friends' do
       visit dashboard_path
 
-      expect(page).to have_content('You currently have no friends.')
+      expect(page).to have_content("You haven't added any friends yet")
     end
 
     it "displays the user's friends" do
@@ -73,7 +73,7 @@ describe 'Dashboard Index' do
 
         visit dashboard_path
 
-        within('#pending-friends') do
+        within('#sent') do
           expect(page).to have_content(friend.name)
           expect(page).to have_content(friend.email)
           expect(page).to have_button('Cancel')
@@ -91,7 +91,7 @@ describe 'Dashboard Index' do
 
         visit dashboard_path
 
-        within('#pending-requests') do
+        within('#received') do
           expect(page).to have_content(friend.name)
           expect(page).to have_content(friend.email)
           expect(page).to have_button('Approve')
@@ -112,7 +112,7 @@ describe 'Dashboard Index' do
 
         click_button('Approve')
 
-        within('#pending-requests') do
+        within('.pending-requests') do
           expect(page).not_to have_content(friend.name)
           expect(page).not_to have_content(friend.email)
         end
@@ -131,7 +131,7 @@ describe 'Dashboard Index' do
           expect(page).to have_content(@user.email)
         end
 
-        within('#pending-friends') do
+        within('.pending-requests') do
           expect(page).not_to have_content(@user.name)
           expect(page).not_to have_content(@user.email)
         end
@@ -219,10 +219,10 @@ describe 'Dashboard Index' do
 
       it 'displays parties with the status of host/invite' do
         visit dashboard_path
-        
+
         within(".parties") do
           expect(page).to have_content(@movie.title)
-          expect(page).to have_content(@party.party_time.strftime('%B %-d %Y'))
+          expect(page).to have_content(@party.party_time.strftime('%B %-d, %Y'))
           expect(page).to have_content(@party.party_time.strftime('%l:%M %p'))
           expect(page).to have_content('Hosting')
         end
@@ -232,7 +232,7 @@ describe 'Dashboard Index' do
 
         within(".parties") do
           expect(page).to have_content(@movie.title)
-          expect(page).to have_content(@party.party_time.strftime('%B %-d %Y'))
+          expect(page).to have_content(@party.party_time.strftime('%B %-d, %Y'))
           expect(page).to have_content(@party.party_time.strftime('%l:%M %p'))
           expect(page).to have_content('Invited')
         end

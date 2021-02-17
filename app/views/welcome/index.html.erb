@@ -1,8 +1,6 @@
-<body>
-  <p>An application to explore movies and create a viewing party event for you and your friends to watch a movie together.</p>
+<h1>Welcome to Viewing Party!</h1>
 
+<p id='description'>Explore movies and create a viewing party event for you and your friends!</p>
 
-  <%= button_to 'Log In', login_path, :method => 'get' %>
-  <%= link_to 'Register', registration_path %>
-
-</body>
+<%= link_to 'Log In', login_path, class: 'nav-link' %><br>
+<%= link_to 'Register', registration_path, class: 'nav-link' %>

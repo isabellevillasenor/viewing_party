@@ -1,46 +1,45 @@
-<body>
-  <%= button_to 'Discover Movies', discover_path, :method => 'get' %>
-</body>
+<%= button_to 'Discover Movies', discover_path, :method => 'get' %>
 
 <section class="friends">
-  <h3>Friends</h3>
-  <hr>
+  <h2>Friends</h2>
+  <hr class="in-section">
   <%= render 'friend_search' %><br/>
-  <h4>Pending Friend Requests</h4>
-  <div id='pending-friends'>
-    <h5>Sent Requests</h5>
-    <%= render partial: 'friend', collection: current_user.sent_requests, locals: {options: :cancel} %>
+  <h3>Pending Friend Requests</h3>
+  <div class='pending-requests'>
+    <div id='sent'>
+      <h4>Sent Requests</h4>
+      <%= render partial: 'shared/friend', collection: current_user.sent_requests, locals: {options: :cancel} %>
+    </div>
+    <div id='received'>
+      <h4>Received Requests</h4>
+      <%= render partial: 'shared/friend', collection: current_user.received_requests, locals: {options: :approve} %>
+    </div>
   </div>
-  <div id='pending-requests'>
-    <h5>Received Requests</h5>
-    <%= render partial: 'friend', collection: current_user.received_requests, locals: {options: :approve} %>
-  </div>
-  <hr>
+
+  <hr class="in-section">
   <div id='approved-friends'>
-    <h4>My Friends</h4>
+    <h3>My Friends</h3>
   <% if current_user.approved_friends.empty? %>
-    <p>You currently have no friends.</p>
+    <p>You haven't added any friends yet</p>
   <% else %>
-     <%= render partial: 'friend', collection: current_user.approved_friends, locals: {options: :none}%>
+     <%= render partial: 'shared/friend', collection: current_user.approved_friends, locals: {options: :none}%>
   <% end %>
   </div>
-
 </section>
-<br/>
-
+<hr>
 <section class="parties">
-  <h3>Movie Parties</h3>
-  <hr>
+  <h2>Movie Parties</h2>
+  <hr class="in-section">
   <% current_user.upcoming_parties.each do |party| %>
-    <%= party.movie_title %><br>
-    <%= party.party_time.strftime('%B %-d %Y') %><br>
-    <%= party.party_time.strftime('%l:%M %p') %><br>
-    <% if party.host_id == current_user.id %>
-      <p>Hosting</p>
-    <% else %>
-      <p>Invited</p>
+    <div class="card">
+      <%= party.movie_title %><br>
+      <%= party.party_time.strftime('%B %-d, %Y') %><br>
+      <%= party.party_time.strftime('%l:%M %p') %><br>
+      <% if party.host_id == current_user.id %>
+        <p>Hosting</p>
+      <% else %>
+        <p>Invited</p>
+      <% end %>
+    </div>
     <% end %>
-  <% end %>
 </section>
-
-<%= button_to 'Log Out', logout_path %>

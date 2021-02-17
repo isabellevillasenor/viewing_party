@@ -7,7 +7,6 @@ RSpec.describe 'user registration' do
   let(:name) {Faker::Name.first_name}
 
   it 'has a welcome message' do
-    expect(page).to have_content("Welcome to Viewing Party")
     expect(page).to have_content("Please Register for an Account")
   end
 

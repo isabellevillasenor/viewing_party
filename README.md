@@ -1,6 +1,9 @@
 # Viewing Party
 
+![Welcome Page](app/assets/images/welcome_screenshot.png)
+
 Viewing party is an application in which users can explore movie options and create a viewing party event for the user and friends. This was a 10 day project assigned by the Turing School of Software & Design Backend Engineering Program. If you'd like to see the live web app, check out [our site on Heroku](https://viewing-party-m3.herokuapp.com/)
+
 
 
 ## Contributors 

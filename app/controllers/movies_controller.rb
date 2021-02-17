@@ -11,5 +11,10 @@ class MoviesController < ApplicationController
     @movie = MoviesFacade.movie_details(params[:api_ref])
     @cast = MoviesFacade.cast_details(params[:api_ref])
     @reviews = MoviesFacade.review_details(params[:api_ref])
+    session[:movie] = {
+      title: @movie.title,
+      runtime: @movie.runtime,
+      id: @movie.api_ref
+    }
   end
 end

@@ -1,3 +1,5 @@
-<p>Please Register for an Account</p>
-<%= render partial: 'shared/login', locals: {button_text: 'Register', new_user: true} %>
-<%= link_to 'Already Registered? Log in Here', login_path %>
+<div class="form">
+  <h3>Please Register for an Account</h3>
+  <%= render partial: 'shared/login', locals: {button_text: 'Register', new_user: true} %>
+  <%= link_to 'Already Registered? Log in Here', login_path %>
+</div>

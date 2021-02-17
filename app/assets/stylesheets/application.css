@@ -39,12 +39,35 @@ a:link{
 }
 
 a:visited{
-  color:aquamarine;
+  color:white;
 }
 
 h1 {
   color: #FBFFFD;
   text-align: center;
+}
+
+input[type=submit] {
+  background-color: #313646;
+  border: 1px solid #9886CD;
+  color: white;
+  padding: 10px 16px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 24px;
+}
+
+input[type=submit]:hover {
+  background-color: #9886CD;
+}
+
+hr {
+  border: 2px solid #9886CD;
+}
+
+ul {
+  list-style-type: none;
 }
 
 .friends {
@@ -69,30 +92,62 @@ h1 {
   justify-content: space-around;
 }
 
-input[type=submit] {
-  background-color: #313646;
-  border: 1px solid #9886CD;
-  color: white;
-  padding: 10px 16px;
-  text-decoration: none;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 24px;
-}
-
-input[type=submit]:hover {
-  background-color: #9886CD;
-
-}
-
-.friend {
-  border: 1px solid black;
+.card {
+  border: 2px solid #b3b3b3;
   display: inline-block;
   text-align: center;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 5px;
+  margin: 5px;
+  box-shadow: 3px 3px #b3b3b3;
 }
 
-.friend h6 {
+.card h6 {
   font-size: 20px;
+}
+
+.in-section {
+  border: 0.5px solid #b3b3b3;
+}
+
+.pending-requests {
+  display: flex;
+  justify-content: space-around;
+  text-align: left;
+}
+
+.sent, .received {
+  border: 0.5px solid #9886CD;
+  text-align: left;
+}
+
+.spacer {
+  width: 100px;
+}
+
+#reviews {
+  text-align: left;
+}
+
+#cast-list {
+  column-count: 2;
+}
+
+#movie-details {
+  display: flex;
+  text-align: left;
+}
+
+#search-results {
+  display: flex;
+  justify-content: space-around;
+  text-align:left
+}
+
+#logout {
+  position: fixed;
+  text-align: right;
+  bottom: 0;
+  right: 0;
 }

@@ -4,6 +4,14 @@
 
 Viewing party is an application in which users can explore movie options and create a viewing party event for the user and friends. This was a 10 day project assigned by the Turing School of Software & Design Backend Engineering Program. If you'd like to see the live web app, check out [our site on Heroku](https://viewing-party-m3.herokuapp.com/)
 
+## Learning Goals:
+- Consume JSON APIs that require authentication
+- Build an application that requires basic authentication
+- Organize and refactor code to be more maintainable
+- Implement a self-referential relationship in ActiveRecord
+- Apply RuboCop’s style guide for code quality
+- Utilize Continuous Integration using Travis CI
+- Deploy to Heroku
 
 
 ## Contributors 
@@ -30,10 +38,12 @@ Isabelle Villasenor [GitHub](https://github.com/isabellevillasenor) | [LinkedIn]
   `bundle install`
 4. Install Figaro  
   `bundle install figaro`
-5. Enter API Key  
-  `config/application.yml`
+5. Enter API Key in `config/application.yml` using the following syntax:
+    ```
+    TMDB_API_KEY: <your api key>
+    ```
 6. Setup the database   
-  `rails db:{create, migrate}`
+  `rails db:{create,migrate}`
 7. Run tests and open coverage report   
   `bundle exec rspec`  
   `open coverage/index.html` 
@@ -47,7 +57,6 @@ Isabelle Villasenor [GitHub](https://github.com/isabellevillasenor) | [LinkedIn]
 - Rails 5.2.4.3
 
 ## Ideas for Additional Features
-- Impliment styling with JavaScript
+- Implement styling with JavaScript
 - Add chat functionality to viewing parties
-- Create a navigation bar on all pages for users to log out or visit their dashboard
 - Consume additonal API endpoints

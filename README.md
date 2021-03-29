@@ -1,4 +1,17 @@
 # Viewing Party
+<p align="left">
+  <a href ="https://ruby-doc.org/">
+    <img src="https://img.shields.io/badge/RUBY-2.5.3-957DAD?style=for-the-badge">
+  </a>
+  &nbsp;
+  <a href="https://guides.rubyonrails.org/">
+    <img src="https://img.shields.io/badge/RAILS-5.2.4.3-957DAD?style=for-the-badge">
+  </a>
+  &nbsp;
+  <a href="https://github.com/simplecov-ruby/simplecov">
+    <img src="https://img.shields.io/badge/coverage-99.62%25-brightgreen?style=for-the-badge"> 
+  </a>
+</p>
 
 ![Welcome Page](app/assets/images/welcome_screenshot.png)
 
